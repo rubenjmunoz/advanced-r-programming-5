@@ -3,7 +3,7 @@ Repository for the course 732A94 Advanced Programming in R at Linköping Univers
 
 ## To do list
 
--Reach a consensus on what API to use
--Based on the API choose the functionality of the Shiny application and its name.
+*Reach a consensus on what API to use
+*Based on the API choose the functionality of the Shiny application and its name.
 
 (more todo coming after this is settled)
