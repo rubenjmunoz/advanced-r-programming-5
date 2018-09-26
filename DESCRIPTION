@@ -1,0 +1,15 @@
+Package: shiny.web.application
+Type: Package
+Title: Shiny Web Application
+Version: 0.1.0
+Author: Annalena Erhard, Ruben J Munoz, Maximilian Pfundstein
+Maintainer: Maximilian Pfundstein <maximilian@pfundstein.org>
+Description: Shiny Web Application for analyzing <placerholder> data.
+License: Apache License
+Encoding: UTF-8
+Depends: R (>= 3.3.0)
+LazyData: true
+Suggests: testthat,
+    covr
+Imports: shiny
+RoxygenNote: 6.1.0
