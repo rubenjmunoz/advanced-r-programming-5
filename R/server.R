@@ -1,7 +1,21 @@
+# Call the recover function when an error occurs
+options(error = recover)
 
 # We tweak the "am" field to have nicer factor labels. Since this doesn't
 # rely on any user inputs we can do this once at startup and then use the
 # value throughout the lifetime of the application
+
+library(httr)
+library(jsonlite)
+
+base = "http://api.kolada.se/"
+endpoint = "v1/ou/data/peryear/N15030/2011"
+
+
+webCall = paste(base, endpoint)
+
+result = GET(webCall)
+
 mpgData <- mtcars
 mpgData$am <- factor(mpgData$am, labels = c("Automatic", "Manual"))
 
