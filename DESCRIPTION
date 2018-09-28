@@ -11,5 +11,8 @@ Depends: R (>= 3.3.0)
 LazyData: true
 Suggests: testthat,
     covr
-Imports: shiny
+Imports: shiny,
+    httr,
+    jsonlite,
+    plyr
 RoxygenNote: 6.1.0
