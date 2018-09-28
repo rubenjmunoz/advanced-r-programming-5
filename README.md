@@ -8,7 +8,7 @@ A Tutorial how to consume a REST-API in R can be found [here](https://www.progra
 The packages needed are [httr](https://cran.r-project.org/web/packages/httr/index.html) for the HTTP communication and [jsonlite](https://cran.r-project.org/web/packages/jsonlite/index.html) for mapping JSON data to data.frames.
 
 ## ToDo
-- Analyse data and decide which data we want to visualize.
+- ~~Analyse data and decide which data we want to visualize~~.
 - Make HTTP calls to receive the data and map it to a data.frame.
 - Build the Shiny application
   - "At least one interactive widget should be used." -> Seems like nothing to "fancy"
