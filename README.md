@@ -32,11 +32,8 @@ webCall = paste(base, endpoint, sep="")
 response = GET(webCall)
 
 # Deserialization
-result = content(response, "text")
+result = content(response, "text", encoding = "utf-8")
 result.data.frame = as.data.frame(fromJSON(result, flatten = TRUE))
-
-# Output
-print(result.data.frame)
 ```
 
 For this call, the response looks like this:
