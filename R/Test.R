@@ -2,8 +2,9 @@ library(shiny)
 library(ggplot2)
 library(httr)
 library(jsonlite)
-
-
+source(
+  'C:/Users/ruben/Desktop/Classes/732A94 Advanced Programming in R/Lab 05/advanced-r-programming-5/R/webServices.R'
+)
 ui <- fluidPage(
   h1("This is the main text SUPER TITLE", align = "center"),
   hr(),
@@ -49,23 +50,24 @@ ui <- fluidPage(
     )
   ),
   splitLayout(
-    wellPanel(h4("A Value"),
-              verbatimTextOutput("inoutTest")),
-    wellPanel(h4("B Value"),
+    wellPanel(
+      h4("The municipality chosen is "),
+      verbatimTextOutput("inoutTest")
+    ),
+    wellPanel(h4("The municipality ID is"),
               verbatimTextOutput("inoutTest2"))
   ),
-  wellPanel(p("Result of ", code("A * B")),
-            verbatimTextOutput("inoutTest3")),
+  # wellPanel(p("Result of ", code("A * B")),
+  #           verbatimTextOutput("inoutTest3")),
+  wellPanel(plotOutput("inoutTest5")),
   wellPanel(p("Vector testing"),
-            tableOutput("inoutTest4")),
-  wellPanel(plotOutput("inoutTest5"))
+            tableOutput("inoutTest4"))
   #*Output()functions
 )
 
 
 server <- function(input, output, session) {
   SlideValue <- c()
-  DropMenuList <- list()
   
   vData <- reactive({
     SlideValue <<- c(SlideValue, input$A * input$B)
@@ -76,47 +78,41 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$button01, {
-    qry_Headers <<-
-      fromJSON("http://api.kolada.se/v2/municipality?", flatten = TRUE)
-    testerino <<- as.data.frame(qry_Headers[2])
+    testerino <<- fetchMunicipalities()
     
     municipalityList <<- as.matrix(testerino["values.title"])
-    
+    municipalityListId <<- as.matrix(testerino["values.id"])
     output$DropList <- renderUI({
       selectInput(inputId = "DropMenu",
                   choices = municipalityList,
                   label = "")
     })
   })
-  
-  
-  #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
-  observeEvent(input$DropMenu, {
+    observeEvent(input$DropMenu, {
     municipalityName <<- paste(input$DropMenu)
     municipalityId <<- match(municipalityName, municipalityList)
-    # print(municipalityName)
-    # print(class(municipalityName))
-    # #print(municipalityName)
-    # print(class(municipalityList))
-    # print(municipalityId)
-    # print(class(municipalityId))
-    # print("----")
     
-    output$munId <-renderPrint(municipalityId)
-    output$inoutTest4 <- renderTable(testerino)
+    
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    municipalityValuesTemp <<-
+      fetchByMunicipality(municipalityListId[municipalityId], 2015)
+    municipalityValues <<- municipalityValuesTemp["values.values"]
+    temp01 <- (municipalityValues$values.values)[4]
+    print(temp01)
+    print(temp01[1]$value)
+    #output$inoutTest4 <- renderTable(as.list(municipalityValues))
+    
+    
+    
+    output$inoutTest <- renderPrint(municipalityName)
+    output$inoutTest2 <-
+      renderPrint(municipalityListId[municipalityId])
+    output$munId <- renderPrint(municipalityListId[municipalityId])
+    # output$inoutTest5 <- renderPlot({
+    #   plot(municipalityValues, type = "o")
+    # })
+   
   })
-  
-  
-  
-  
-    output$inoutTest <- renderPrint(input$A)
-    output$inoutTest2 <- renderPrint(input$B)
-    output$inoutTest3 <- renderPrint(input$A * input$B)
-    
-    output$inoutTest5 <- renderPlot({
-      plot(vData(), type = "o")
-    })
 }
 
 shinyApp(ui = ui, server = server)
