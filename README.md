@@ -39,7 +39,7 @@ result.data.frame = as.data.frame(fromJSON(result, flatten = TRUE))
 print(result.data.frame)
 ```
 
-For this call, the response looks like this
+For this call, the response looks like this:
 
 ```r
 > head(result.data.frame)
