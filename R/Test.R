@@ -66,7 +66,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   SlideValue <- c()
   DropMenuList <- list()
-  #testterino <- data.frame()
+  
   vData <- reactive({
     SlideValue <<- c(SlideValue, input$A * input$B)
   })
@@ -78,37 +78,45 @@ server <- function(input, output, session) {
   observeEvent(input$button01, {
     qry_Headers <<-
       fromJSON("http://api.kolada.se/v2/municipality?", flatten = TRUE)
-    testerino <- as.data.frame(qry_Headers[2])
+    testerino <<- as.data.frame(qry_Headers[2])
     
-    municipalityList <- as.data.frame(testerino["values.title"])
-    #print(class(municipalityList))
-    #print(municipalityList)
-    municipalityName <- input$DropMenu
-    print(municipalityName)
-    municipalityId <<- municipalityList[municipalityList[(input$DropMenu),2]==(input$DropMenu),1]
-    output$inoutTest4 <- renderTable(qry_Headers)
+    municipalityList <<- as.matrix(testerino["values.title"])
+    
     output$DropList <- renderUI({
       selectInput(inputId = "DropMenu",
                   choices = municipalityList,
                   label = "")
     })
-    output$munId <- renderPrint(municipalityId)
   })
+  
+  
+  #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
   observeEvent(input$DropMenu, {
-    print(input$DropMenu)
-  })
-  
-  refreshedDropList <- eventReactive(input$button01, {
+    municipalityName <<- paste(input$DropMenu)
+    municipalityId <<- match(municipalityName, municipalityList)
+    # print(municipalityName)
+    # print(class(municipalityName))
+    # #print(municipalityName)
+    # print(class(municipalityList))
+    # print(municipalityId)
+    # print(class(municipalityId))
+    # print("----")
     
+    output$munId <-renderPrint(municipalityId)
+    output$inoutTest4 <- renderTable(testerino)
   })
   
-  output$inoutTest <- renderPrint(input$A)
-  output$inoutTest2 <- renderPrint(input$B)
-  output$inoutTest3 <- renderPrint(input$A * input$B)
   
-  output$inoutTest5 <- renderPlot({
-    plot(vData(), type = "o")
-  })
+  
+  
+    output$inoutTest <- renderPrint(input$A)
+    output$inoutTest2 <- renderPrint(input$B)
+    output$inoutTest3 <- renderPrint(input$A * input$B)
+    
+    output$inoutTest5 <- renderPlot({
+      plot(vData(), type = "o")
+    })
 }
 
 shinyApp(ui = ui, server = server)
