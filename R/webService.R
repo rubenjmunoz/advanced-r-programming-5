@@ -11,7 +11,16 @@ base = "http://api.kolada.se/"
 api_version = "v2/"
 
 fetchMunicipalities = function() {
-  endpoint = "kpi_groups/"
+  endpoint = "municipality"
+  webCall = paste(base, api_version, endpoint, sep="")
+  
+  # Execution
+  response = GET(webCall)
+  
+  # Deserialization
+  result = fromJSON(content(response, "text", encoding = "utf-8"), flatten = TRUE)
+  
+  return(as.data.frame(result))
 }
 
 fetchKpis = function() {
@@ -76,5 +85,5 @@ fetchData = function(kpi, municipality, year) {
   }
 }
 
-x = fetchKpis()
+x = fetchMunicipalities()
 a = 5
