@@ -15,3 +15,39 @@ The packages needed are [httr](https://cran.r-project.org/web/packages/httr/inde
 - Package documentation
 - Unit Tests
 - Vignette
+
+## Example for REST-Call
+This is an example how the libraries can be used to fetch data. Be aware, that this example does not handle pagination.
+
+```r
+library(httr)
+library(jsonlite)
+
+# Prepare Call
+base = "http://api.kolada.se/"
+endpoint = "v1/ou/data/peryear/N15030/2011"
+webCall = paste(base, endpoint, sep="")
+
+# Execution
+response = GET(webCall)
+
+# Deserialization
+result = content(response, "text")
+result.data.frame = as.data.frame(fromJSON(result, flatten = TRUE))
+
+# Output
+print(result.data.frame)
+```
+
+For this call, the response looks like this
+
+```r
+> head(result.data.frame)
+  values.kpi    values.ou values.period values.value values.value_m values.value_f                                                                   next. count
+1     N15030 V150114G0R01          2011         84.4             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
+2     N15030 V150114G0R02          2011         81.8             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
+3     N15030 V150115G0R01          2011         84.3             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
+4     N15030 V150115G0R02          2011         62.1             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
+5     N15030 V150117G0R01          2011         84.8             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
+6     N15030 V150117G0R02          2011         76.4             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
+```
