@@ -78,6 +78,8 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$button01, {
+    output$inoutTest <- renderPrint("LOADING")
+    output$inoutTest2 <- renderPrint("LOADING")
     testerino <<- fetchMunicipalities()
     
     municipalityList <<- as.matrix(testerino["values.title"])
@@ -88,18 +90,34 @@ server <- function(input, output, session) {
                   label = "")
     })
   })
-    observeEvent(input$DropMenu, {
+  observeEvent(input$DropMenu, {
+    output$inoutTest <- renderPrint("LOADING")
+    output$inoutTest2 <- renderPrint("LOADING")
+    
     municipalityName <<- paste(input$DropMenu)
     municipalityId <<- match(municipalityName, municipalityList)
     
     
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     municipalityValuesTemp <<-
-      fetchByMunicipality(municipalityListId[municipalityId], 2015)
+      fetchByMunicipality(municipalityListId[municipalityId], 2016)
     municipalityValues <<- municipalityValuesTemp["values.values"]
-    temp01 <- (municipalityValues$values.values)[4]
-    print(temp01)
-    print(temp01[1]$value)
+    
+    cnt <- 1
+    valVector <- c()
+    temp0101 <- list()
+    while (!is.null(temp0101)) {
+      valAns <- (municipalityValues$values.values)[cnt]
+      temp0101 <- valAns[[1]]
+      valVector <- c(valVector, unlist(temp0101["value"]))
+      cnt <- cnt + 1
+    }
+    #print(valVector)
+    #print(class(valVector))
+    # temp01 <- (municipalityValues$values.values)[4]
+    # temp0101 <- temp01[[1]]
+    # print(temp0101)
+    # print(temp0101["value"])
     #output$inoutTest4 <- renderTable(as.list(municipalityValues))
     
     
@@ -108,10 +126,10 @@ server <- function(input, output, session) {
     output$inoutTest2 <-
       renderPrint(municipalityListId[municipalityId])
     output$munId <- renderPrint(municipalityListId[municipalityId])
-    # output$inoutTest5 <- renderPlot({
-    #   plot(municipalityValues, type = "o")
-    # })
-   
+    output$inoutTest5 <- renderPlot({
+      plot(valVector, type = "h")
+    })
+    
   })
 }
 
