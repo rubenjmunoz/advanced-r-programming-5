@@ -11,22 +11,15 @@ mpgData$am <- factor(mpgData$am, labels = c("Automatic", "Manual"))
 # Define server logic required to plot various variables against mpg
 shinyServer(function(input, output) {
   
-  # Compute the forumla text in a reactive expression since it is 
-  # shared by the output$caption and output$mpgPlot expressions
-  formulaText <- reactive({
-    paste("mpg ~", input$variable)
+  municipalitiesDataFrame = fetchMunicipalities()
+  
+  # Municipality Dropdown
+  output$municipalityDropDownList <- renderUI({
+    selectInput(inputId = "municipalityDropDownList",
+                choices = as.matrix(municipalitiesDataFrame["values.title"]),
+                label = "This is the label")
   })
   
-  # Return the formula text for printing as a caption
-  output$caption <- renderText({
-    formulaText()
-  })
   
-  # Generate a plot of the requested variable against mpg and only 
-  # include outliers if requested
-  output$mpgPlot <- renderPlot({
-    boxplot(as.formula(formulaText()), 
-            data = mpgData,
-            outline = input$outliers)
-  })
+  
 })
