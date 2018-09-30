@@ -2,9 +2,7 @@ library(shiny)
 library(ggplot2)
 library(httr)
 library(jsonlite)
-source(
-  'C:/Users/ruben/Desktop/Classes/732A94 Advanced Programming in R/Lab 05/advanced-r-programming-5/R/webServices.R'
-)
+source('webService.R')
 ui <- fluidPage(
   h1("kola database", align = "center"),
   hr(),
