@@ -9,12 +9,15 @@ The packages needed are [httr](https://cran.r-project.org/web/packages/httr/inde
 
 ## ToDo
 - ~~Analyse data and decide which data we want to visualize~~.
-- Make HTTP calls to receive the data and map it to a data.frame.
-- Build the Shiny application
-  - "At least one interactive widget should be used." -> Seems like nothing to "fancy"
+- ~~Make HTTP calls to receive the data and map it to a data.frame.~~
+- Refactor code and make it more beautiful
+- Copy left side code to the right side
+- Implement selection of multiple KPIs
+- More fancy stuff like color, etc.
 - Package documentation
 - Unit Tests
 - Vignette
+- TravisCI and create R package
 
 ## Example for REST-Call
 This is an example how the libraries can be used to fetch data. Be aware, that this example does not handle pagination.
