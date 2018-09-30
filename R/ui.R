@@ -14,13 +14,12 @@ shinyUI(
                       " Select Input",
                       fluidRow(
                         column(4, 
-                               "Dropdown Input 1",
-                               uiOutput("municipalityDropDownList")
+                               uiOutput("municipalityDropDownListLeft")
                         ),
                         column(4,
-                               "Dropdown Input 2"),
+                               uiOutput("kpiDropDownListLeft")),
                         column(4,
-                               "Dropdown Input 3")
+                               uiOutput("yearDropDownListLeft"))
                       ),
                       fluidRow(
                         plotOutput("Barplot_1")
@@ -30,11 +29,12 @@ shinyUI(
                       " Select Input",
                       fluidRow(
                         column(4, 
-                               "Dropdown Input 1"),
+                               uiOutput("municipalityDropDownListRight")
+                        ),
                         column(4,
-                               "Dropdown Input 2"),
+                               uiOutput("kpiDropDownListRight")),
                         column(4,
-                               "Dropdown Input 3")
+                               uiOutput("yearDropDownListRight"))
                       ),
                       fluidRow(
                         plotOutput("Barplot 2")
