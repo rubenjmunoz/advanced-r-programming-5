@@ -125,5 +125,5 @@ fetchByKpi = function(kpi, municipality , year = 0) {
 
 #a = fetchMunicipalities()
 #b = fetchKpis()
-#c = fetchByKpi(list("N00914,U00405"), 1440, 2012)
+c = fetchByKpi(list("N00914,U00405"), 1440, 2012)
 #d = fetchByMunicipality(1440)
