@@ -334,3 +334,11 @@ c = fetchByKpi(list("N00914,U00405"), 1440, 2012)
 
 
 ```
+
+
+
+### Example API
+http://api.kolada.se/v2/data/municipality/1860/year/2009 
+
+
+
