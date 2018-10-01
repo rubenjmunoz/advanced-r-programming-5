@@ -4,12 +4,19 @@ library(httr)
 library(jsonlite)
 source('webService.R')
 
+
+# User interface for the shiny app
+
 shinyUI(
   fluidPage(
     fluidRow(
+      
+      # Header - whole line width
       column(12,
              "Comparison of two plots",
              fluidRow(
+               
+               # Column Left
                column(6,
                       " Select Input",
                       fluidRow(
@@ -35,6 +42,8 @@ shinyUI(
                         plotOutput("Barplot_Left")
                       )
                ),
+               
+               # Column Right
                column(6,
                       " Select Input",
                       fluidRow(
