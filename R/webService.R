@@ -1,6 +1,6 @@
-library(httr)
-library(jsonlite)
-library(plyr)
+#library(httr)
+#library(jsonlite)
+#library(plyr)
 
 # Basic Data
 base = "http://api.kolada.se/"
@@ -119,6 +119,7 @@ fetchByKpi = function(kpi, municipality , year = 0) {
   
   # Deserialization
   result = fromJSON(content(response, "text"), flatten = TRUE)
+  if (result["count"] == 0) return(data.frame())
   return(as.data.frame(result))
 }
 
