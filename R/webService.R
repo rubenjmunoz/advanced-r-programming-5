@@ -1,6 +1,6 @@
-#library(httr)
-#library(jsonlite)
-#library(plyr)
+library(httr)
+library(jsonlite)
+library(plyr)
 
 # Basic Data
 base = "http://api.kolada.se/"
@@ -88,15 +88,15 @@ fetchByMunicipality = function(municipality, year){
 
 #' Fetch By KPI
 #'
-#' @param kpi Id of the KPIs as a list. Seperator is a ','.
+#' @param kpi Id of the KPIs as a list.
 #' @param municipality Id of the municipality.
-#' @param year (optional) The year as integer.
+#' @param year The years to fetch as a list.
 #'
 #' @return Returns a data.frame containing the
 #' @export
 #'
-#' @examples fetchByKpi(list("N00914,U00405"), 1440, 2012)
-fetchByKpi = function(kpi, municipality , year = 0) {
+#' @examples fetchByKpi(list("N00914,U00405"), 1440, list(2010, 2011, 2012))
+fetchByKpi = function(kpi, municipality , year = list()) {
 
   endpoint = "data/kpi/"
 
@@ -109,7 +109,14 @@ fetchByKpi = function(kpi, municipality , year = 0) {
   
   webCall = paste (webCall, "/municipality/", municipality, sep="")
 
-  if (year > 0) webCall = paste(webCall, "/year/", year, sep="")
+  if (length(year) > 0) {
+    webCall = paste(webCall, "/year/", sep="")
+    
+    for (j in 1:length(year)) {
+      webCall = paste(webCall, year[j], sep="")
+      if (j != length(year)) webCall = paste(webCall, ",", sep="")
+    }
+  }
   
   # Execution
   response = GET(webCall)
@@ -125,5 +132,5 @@ fetchByKpi = function(kpi, municipality , year = 0) {
 
 #a = fetchMunicipalities()
 #b = fetchKpis()
-c = fetchByKpi(list("N00914,U00405"), 1440, 2012)
+c = fetchByKpi(list("N00914,U00405"), 1440, list(2010, 2011, 2012))
 #d = fetchByMunicipality(1440)
