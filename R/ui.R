@@ -22,7 +22,10 @@ shinyUI(
                                uiOutput("yearDropDownListLeft"))
                       ),
                       fluidRow(
-                        plotOutput("Barplot_1")
+                        actionButton(inputId = "PlotButtonLeft", label = "Plot dat shit!")
+                      ),
+                      fluidRow(
+                        plotOutput("Barplot_Left")
                       )
                ),
                column(6,
@@ -37,7 +40,10 @@ shinyUI(
                                uiOutput("yearDropDownListRight"))
                       ),
                       fluidRow(
-                        plotOutput("Barplot 2")
+                        actionButton(inputId = "PlotButtonRight", label = "Plot dat shit!")
+                      ),
+                      fluidRow(
+                        plotOutput("Barplot_Right")
                       )
                )
              )
