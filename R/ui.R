@@ -17,10 +17,17 @@ shinyUI(
                                uiOutput("municipalityDropDownListLeft")
                         ),
                         column(4,
-                               uiOutput("kpiDropDownListLeft")),
-                        column(4,
-                               uiOutput("yearDropDownListLeft"))
+                               uiOutput("kpiDropDownListLeft"))
+                        # ,
+                        # column(4,
+                        #        #uiOutput("yearDropDownListLeft"))
+                        #        sliderInput("yearDropDownListLeft", label = h3("Year Range"), min = 1980, 
+                        #                    max = 2017, value = c(2012, 2012))
+                        # )
+                               
                       ),
+                      sliderInput("yearDropDownListLeft", label = h3("Year Range"), min = 1980, 
+                                  max = 2017, value = c(1992, 2004), width = "100%"),
                       fluidRow(
                         actionButton(inputId = "PlotButtonLeft", label = "Plot dat shit!")
                       ),
