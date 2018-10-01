@@ -5,8 +5,8 @@ options(error = recover)
 # rely on any user inputs we can do this once at startup and then use the
 # value throughout the lifetime of the application
 
-mpgData = mtcars
-mpgData$am = factor(mpgData$am, labels = c("Automatic", "Manual"))
+# mpgData = mtcars
+# mpgData$am = factor(mpgData$am, labels = c("Automatic", "Manual"))
 
 # Define server logic required to plot various variables against mpg
 shinyServer(function(input, output) {
@@ -58,25 +58,8 @@ shinyServer(function(input, output) {
   })
   
   observeEvent(input$PlotButtonLeft, {
-    #print(list(input$kpiDropDownListLeft))
-    #print(municipalitiesDataFrame[which(input$municipalityDropDownListLeft == municipalitiesDataFrame$values_title), "values.id"])
-    #print(match(input$municipalityDropDownListLeft, municipalitiesDataFrame))
-    #municipalityName = paste(input$municipalityDropDownListLeft)
-    
-    temporinoList = as.matrix(municipalitiesDataFrame["values.title"])
-    temporinoName = as.matrix(municipalitiesDataFrame["values.id"])
-    temporinoDropDownName = paste(input$municipalityDropDownListLeft)
-    municipalityId = match(temporinoDropDownName, temporinoList)
-    temporinoId = temporinoName[municipalityId]
-
-    
-    #print(as.numeric(input$yearDropDownListLeft))
-    fakeList = list()
-    #kpiResultLeft = fetchByKpi(list(input$kpiDropDownListLeft), temporinoId, paste(input$yearDropDownListLeft))
-    print(input$yearDropDownListLeft)
-    print(as.numeric(input$yearDropDownListLeft))
-    pasteTesterino = paste(input$yearDropDownListLeft)
-    kpiResultLeft = fetchByKpi(list("N00914,U00405"), temporinoId, as.numeric(input$yearDropDownListLeft))
+    municipalityDropDownListLeftId = as.matrix(municipalitiesDataFrame["values.id"])[match(as.character(input$municipalityDropDownListLeft), as.matrix(municipalitiesDataFrame["values.title"]))]
+    kpiResultLeft = fetchByKpi(list("N00914,U00405"), municipalityDropDownListLeftId, as.numeric(input$yearDropDownListLeft))
     #print(head(kpiResultLeft))
     if (nrow(kpiResultLeft) == 0) {
       showModal(modalDialog(
