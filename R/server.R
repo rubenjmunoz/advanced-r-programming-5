@@ -104,7 +104,12 @@ shinyServer(function(input, output) {
     if (sum(kpiResultLeftVector) == 0) {
       # print no data message
       output$Barplot_Left = renderPlot({
-        plot(1, 1, col = "white")
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
+        plot(1, 1, col = "white",
+             col.main="lightgray",
+             col.lab ="lightgray",
+             col.axis="lightgray",
+             fg = "lightgray")
         text(1, 1, "No data available:'( blame the government", col = "red")
       })
     }
@@ -112,10 +117,16 @@ shinyServer(function(input, output) {
       # plot the datarina
       names(kpiResultLeftVector) <- c(yearMin:yearMax)
       output$Barplot_Left = renderPlot({
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
         barplot(
           kpiResultLeftVector,
           main = "Holy Fudge!",
           col = c("springgreen2", "mediumaquamarine"),
+          col.main="lightgray",
+          col.lab ="lightgray",
+          col.axis="lightgray",
+          fg = "lightgray",
+          border = "lightgray",
           las = 3
         )
       })
@@ -188,21 +199,41 @@ shinyServer(function(input, output) {
     if (sum(kpiResultRightVector) == 0) {
       # print no data message
       output$Barplot_Right = renderPlot({
-        plot(1, 1, col = "white")
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
+        plot(1, 1, col = "gray", 
+             col.main="lightgray",
+             col.lab ="lightgray",
+             col.axis="lightgray",
+             fg = "lightgray")
         text(1, 1, "No data available:'( blame the government", col = "red")
       })
     }
     else{
-      # plot the datarina
+      # plot the datarina (????)
       names(kpiResultRightVector) <- c(yearMin:yearMax)
       output$Barplot_Right = renderPlot({
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
         barplot(
           kpiResultRightVector,
           main = "Holy Fudge!",
           col = c("springgreen2", "mediumaquamarine"),
+          col.main="lightgray",
+          col.lab ="lightgray",
+          col.axis="lightgray",
+          fg = "lightgray",
+          border = "lightgray",
           las = 3
         )
-      })
+      # output$Barplot_Right = renderPlot({
+      #   # Create data
+      #   data = data.frame(Year = as.character(c(yearMin:yearMax)) ,  Value =
+      #                       kpiResultRightVector)
+      #   # Barplot
+      #   ggplot(data, aes(x = Year, y = Value, fill = rgb(.5,.5,.5), color = "red")) +
+      #     geom_bar(stat = "identity")
+      #   # +
+      #   #   theme_dark()
+       })
     }
   })
 })
