@@ -4,57 +4,65 @@ library(httr)
 library(jsonlite)
 source('webService.R')
 
-shinyUI(
-  fluidPage(
-    fluidRow(
-      column(12,
-             "Comparison of two plots",
-             fluidRow(
-               column(6,
-                      " Select Input",
-                      fluidRow(
-                        column(4, 
-                               uiOutput("municipalityDropDownListLeft")
-                        ),
-                        column(4,
-                               uiOutput("kpiDropDownListLeft"))
-                        # ,
-                        # column(4,
-                        #        #uiOutput("yearDropDownListLeft"))
-                        #        sliderInput("yearDropDownListLeft", label = h3("Year Range"), min = 1980, 
-                        #                    max = 2017, value = c(2012, 2012))
-                        # )
-                        
-                      ),
-                      sliderInput("yearDropDownListLeft", label = h3("Year Range"), min = 1980, 
-                                  max = 2017, value = c(1992, 2004), width = "100%"),
-                      fluidRow(
-                        actionButton(inputId = "PlotButtonLeft", label = "Plot dat shit!")
-                      ),
-                      fluidRow(
-                        plotOutput("Barplot_Left")
-                      )
-               ),
-               column(6,
-                      " Select Input",
-                      fluidRow(
-                        column(4, 
-                               uiOutput("municipalityDropDownListRight")
-                        ),
-                        column(4,
-                               uiOutput("kpiDropDownListRight")),
-                        column(4,
-                               uiOutput("yearDropDownListRight"))
-                      ),
-                      fluidRow(
-                        actionButton(inputId = "PlotButtonRight", label = "Plot dat shit!")
-                      ),
-                      fluidRow(
-                        plotOutput("Barplot_Right")
-                      )
-               )
-             )
-      )
+shinyUI(fluidPage(fluidRow(column(
+  12,
+  h1("Kola database", align = "center"),
+  h3("KPI comparison of two municipalities", align = "center"),
+  hr(),
+  fluidRow(
+    column(
+      6,
+      
+      wellPanel(
+        h4(" 1. Select Parameters"),
+        hr(),
+        column(6,
+               uiOutput("municipalityDropDownListLeft")),
+        column(6,
+               uiOutput("kpiDropDownListLeft")),
+        sliderInput(
+          "yearDropDownListLeft",
+          label = h3("Year Range"),
+          min = 1980,
+          max = 2017,
+          value = c(1992, 2004),
+          width = "100%"
+        ),
+        fluidRow( align = "center",
+          actionButton(
+            inputId = "PlotButtonLeft",
+            label = "2 Plot dat shit!"
+          )
+        )
+      ),
+      fluidRow(plotOutput("Barplot_Left"))
+      
+    ),
+    column(
+      6,
+      wellPanel(
+        h4(" 1. Select Parameters"),
+        hr(),
+        column(6,
+               uiOutput("municipalityDropDownListRight")),
+        column(6,
+               uiOutput("kpiDropDownListRight")),
+        sliderInput(
+          "yearDropDownListRight",
+          label = h3("Year Range"),
+          min = 1980,
+          max = 2017,
+          value = c(1992, 2004),
+          width = "100%"
+        ),
+        fluidRow( align = "center",
+                  actionButton(
+                    inputId = "PlotButtonRight",
+                    label = "2 Plot dat shit!"
+                  )
+        )
+      ),
+      fluidRow(plotOutput("Barplot_Right"))
     )
   )
-)
+))))

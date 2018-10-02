@@ -59,13 +59,14 @@ shinyServer(function(input, output) {
   # output$yearDropDownListLeft = renderPrint(input$)
   
   # Year Dropdown Right
-  output$yearDropDownListRight = renderUI({
-    selectInput(inputId = "yearDropDownListRight",
-                choices = yearsAsVector,
-                label = "Select Year:")
-  })
+  # output$yearDropDownListRight = renderUI({
+  #   selectInput(inputId = "yearDropDownListRight",
+  #               choices = yearsAsVector,
+  #               label = "Select Year:")
+  # })
   
   observeEvent(input$PlotButtonLeft, {
+    # Left Panel
     municipalityDropDownListLeftId = as.matrix(municipalitiesDataFrame["values.id"])[match(
       as.character(input$municipalityDropDownListLeft),
       as.matrix(municipalitiesDataFrame["values.title"])
@@ -96,5 +97,41 @@ shinyServer(function(input, output) {
       barplot(kpiResultLeftVector, main = "Holy Fudge!", col = c("springgreen2", "mediumaquamarine"), las = 3)
     })
   })
+  
+  
+  observeEvent(input$PlotButtonRight, {
+    # Left Panel
+    municipalityDropDownListRightId = as.matrix(municipalitiesDataFrame["values.id"])[match(
+      as.character(input$municipalityDropDownListRight),
+      as.matrix(municipalitiesDataFrame["values.title"])
+    )]
+    
+    yearMin <- as.numeric(input$yearDropDownListRight)[1]
+    yearMax <- as.numeric(input$yearDropDownListRight)[2]
+    yearCnt <- as.numeric(input$yearDropDownListRight)[1]
+    
+    kpiResultRightVector <- c()
+    while (yearCnt <= yearMax) {
+      kpiResultRight <-
+        fetchByKpi(as.character(input$kpiDropDownListRight),
+                   municipalityDropDownListRightId,
+                   yearCnt)
+      if (nrow(kpiResultRight) == 0) {
+        kpiResultRightVector <- c(kpiResultRightVector, 0)
+      }
+      else{
+        content = kpiResultRight[1, "values.values"]
+        kpiResultRightVector <-
+          c(kpiResultRightVector, content[[1]][3, "value"])
+      }
+      yearCnt <- yearCnt + 1
+    }
+    names(kpiResultRightVector) <- c(yearMin:yearMax)
+    output$Barplot_Right = renderPlot({
+      barplot(kpiResultRightVector, main = "Holy Fudge!", col = c("springgreen2", "mediumaquamarine"), las = 3)
+    })
+  })
+  
+  
   
 })
