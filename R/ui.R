@@ -22,7 +22,7 @@ shinyUI(fluidPage(fluidRow(column(
                uiOutput("kpiDropDownListLeft")),
         sliderInput(
           "yearDropDownListLeft",
-          label = h3("Year Range"),
+          label = "Year Range",
           min = 1980,
           max = 2017,
           value = c(1992, 2004),
@@ -49,7 +49,7 @@ shinyUI(fluidPage(fluidRow(column(
                uiOutput("kpiDropDownListRight")),
         sliderInput(
           "yearDropDownListRight",
-          label = h3("Year Range"),
+          label = "Year Range",
           min = 1980,
           max = 2017,
           value = c(1992, 2004),

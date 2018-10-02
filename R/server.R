@@ -79,28 +79,52 @@ shinyServer(function(input, output) {
     kpiResultLeftVector <- c()
     while (yearCnt <= yearMax) {
       kpiResultLeft <-
-        fetchByKpi(as.character(input$kpiDropDownListLeft),
-                   municipalityDropDownListLeftId,
-                   yearCnt)
+        fetchByKpi(
+          as.character(input$kpiDropDownListLeft),
+          municipalityDropDownListLeftId,
+          yearCnt
+        )
       if (nrow(kpiResultLeft) == 0) {
         kpiResultLeftVector <- c(kpiResultLeftVector, 0)
       }
       else{
         content = kpiResultLeft[1, "values.values"]
-        kpiResultLeftVector <-
-          c(kpiResultLeftVector, content[[1]][3, "value"])
+        # Some times despite having some data in the row, the value we are looking for is not found and a NA is returned
+        if (is.na(content[[1]][3, "value"])) {
+          kpiResultLeftVector <-
+            c(kpiResultLeftVector, 0)
+        }
+        else{
+          kpiResultLeftVector <-
+            c(kpiResultLeftVector, content[[1]][3, "value"])
+        }
       }
       yearCnt <- yearCnt + 1
     }
-    names(kpiResultLeftVector) <- c(yearMin:yearMax)
-    output$Barplot_Left = renderPlot({
-      barplot(kpiResultLeftVector, main = "Holy Fudge!", col = c("springgreen2", "mediumaquamarine"), las = 3)
-    })
+    if (sum(kpiResultLeftVector) == 0) {
+      # print no data message
+      output$Barplot_Left = renderPlot({
+        plot(1, 1, col = "white")
+        text(1, 1, "No data available:'( blame the government", col = "red")
+      })
+    }
+    else{
+      # plot the datarina
+      names(kpiResultLeftVector) <- c(yearMin:yearMax)
+      output$Barplot_Left = renderPlot({
+        barplot(
+          kpiResultLeftVector,
+          main = "Holy Fudge!",
+          col = c("springgreen2", "mediumaquamarine"),
+          las = 3
+        )
+      })
+    }
   })
   
   
   observeEvent(input$PlotButtonRight, {
-    # Left Panel
+    # Right panel
     municipalityDropDownListRightId = as.matrix(municipalitiesDataFrame["values.id"])[match(
       as.character(input$municipalityDropDownListRight),
       as.matrix(municipalitiesDataFrame["values.title"])
@@ -111,27 +135,74 @@ shinyServer(function(input, output) {
     yearCnt <- as.numeric(input$yearDropDownListRight)[1]
     
     kpiResultRightVector <- c()
+    # while (yearCnt <= yearMax) {
+    #   kpiResultRight <-
+    #     fetchByKpi(
+    #       as.character(input$kpiDropDownListRight),
+    #       municipalityDropDownListRightId,
+    #       yearCnt
+    #     )
+    #   if (nrow(kpiResultRight) == 0) {
+    #     kpiResultRightVector <- c(kpiResultRightVector, 0)
+    #   }
+    #   else{
+    #     content = kpiResultRight[1, "values.values"]
+    #     kpiResultRightVector <-
+    #       c(kpiResultRightVector, content[[1]][3, "value"])
+    #   }
+    #   yearCnt <- yearCnt + 1
+    # }
+    # names(kpiResultRightVector) <- c(yearMin:yearMax)
+    # output$Barplot_Right = renderPlot({
+    #   barplot(
+    #     kpiResultRightVector,
+    #     main = "Holy Fudge!",
+    #     col = c("springgreen2", "mediumaquamarine"),
+    #     las = 3
+    #   )
+    # })
     while (yearCnt <= yearMax) {
       kpiResultRight <-
-        fetchByKpi(as.character(input$kpiDropDownListRight),
-                   municipalityDropDownListRightId,
-                   yearCnt)
+        fetchByKpi(
+          as.character(input$kpiDropDownListRight),
+          municipalityDropDownListRightId,
+          yearCnt
+        )
       if (nrow(kpiResultRight) == 0) {
         kpiResultRightVector <- c(kpiResultRightVector, 0)
       }
       else{
         content = kpiResultRight[1, "values.values"]
-        kpiResultRightVector <-
-          c(kpiResultRightVector, content[[1]][3, "value"])
+        # Some times despite having some data in the row, the value we are looking for is not found and a NA is returned
+        if (is.na(content[[1]][3, "value"])) {
+          kpiResultRightVector <-
+            c(kpiResultRightVector, 0)
+        }
+        else{
+          kpiResultRightVector <-
+            c(kpiResultRightVector, content[[1]][3, "value"])
+        }
       }
       yearCnt <- yearCnt + 1
     }
-    names(kpiResultRightVector) <- c(yearMin:yearMax)
-    output$Barplot_Right = renderPlot({
-      barplot(kpiResultRightVector, main = "Holy Fudge!", col = c("springgreen2", "mediumaquamarine"), las = 3)
-    })
+    if (sum(kpiResultRightVector) == 0) {
+      # print no data message
+      output$Barplot_Right = renderPlot({
+        plot(1, 1, col = "white")
+        text(1, 1, "No data available:'( blame the government", col = "red")
+      })
+    }
+    else{
+      # plot the datarina
+      names(kpiResultRightVector) <- c(yearMin:yearMax)
+      output$Barplot_Right = renderPlot({
+        barplot(
+          kpiResultRightVector,
+          main = "Holy Fudge!",
+          col = c("springgreen2", "mediumaquamarine"),
+          las = 3
+        )
+      })
+    }
   })
-  
-  
-  
 })
