@@ -50,23 +50,13 @@ shinyServer(function(input, output) {
     )
   })
   
-  # Year Dropdown Left
-  # output$yearDropDownListLeft = renderUI({
-  #   selectInput(inputId = "yearDropDownListLeft",
-  #               choices = yearsAsVector,
-  #               label = "Select Year:")
-  # })
-  # output$yearDropDownListLeft = renderPrint(input$)
-  
-  # Year Dropdown Right
-  # output$yearDropDownListRight = renderUI({
-  #   selectInput(inputId = "yearDropDownListRight",
-  #               choices = yearsAsVector,
-  #               label = "Select Year:")
-  # })
-  
   observeEvent(input$PlotButtonLeft, {
     # Left Panel
+    municipalityDropDownListLeftHolder = as.character(input$municipalityDropDownListLeft)
+    kpiDropDownListLeftHolder = as.character(input$kpiDropDownListLeft)
+    #print(municipalityDropDownListLeftHolder)
+    #print(kpiDropDownListLeftHolder)
+    
     municipalityDropDownListLeftId = as.matrix(municipalitiesDataFrame["values.id"])[match(
       as.character(input$municipalityDropDownListLeft),
       as.matrix(municipalitiesDataFrame["values.title"])
@@ -104,12 +94,15 @@ shinyServer(function(input, output) {
     if (sum(kpiResultLeftVector) == 0) {
       # print no data message
       output$Barplot_Left = renderPlot({
-        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
-        plot(1, 1, col = "white",
-             col.main="lightgray",
-             col.lab ="lightgray",
-             col.axis="lightgray",
-             fg = "lightgray")
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
+        plot(
+          1,
+          1,
+          col.main = "lightgray",
+          col.lab = "lightgray",
+          col.axis = "lightgray",
+          fg = "lightgray"
+        )
         text(1, 1, "No data available:'( blame the government", col = "red")
       })
     }
@@ -117,25 +110,139 @@ shinyServer(function(input, output) {
       # plot the datarina
       names(kpiResultLeftVector) <- c(yearMin:yearMax)
       output$Barplot_Left = renderPlot({
-        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
+        par(mar = c(5,4,4.2,2), xpd = TRUE)
         barplot(
           kpiResultLeftVector,
-          main = "Holy Fudge!",
-          col = c("springgreen2", "mediumaquamarine"),
-          col.main="lightgray",
-          col.lab ="lightgray",
-          col.axis="lightgray",
+          main = paste(as.character(municipalityDropDownListLeftHolder), as.character(kpiDropDownListLeftHolder), "KPI historical performance."),
+          xlab = "Year",
+          ylab = "KPI performance",
+          cex.lab = 1.2,
+          col = transparent(c(
+            "springgreen2", "mediumaquamarine"
+          ), trans.val = 0.8),
+          col.main = "lightgray",
+          col.lab = "lightgray",
+          col.axis = "lightgray",
           fg = "lightgray",
           border = "lightgray",
           las = 3
+        )
+        abline(
+          h = mean(kpiResultLeftVector[kpiResultLeftVector != 0]),
+          lty = 2,
+          lwd = 2,
+          col = 'mediumpurple3'
+        )
+        abline(
+          glm(kpiResultLeftVector[kpiResultLeftVector != 0] ~ c(1:length(
+            kpiResultLeftVector[kpiResultLeftVector != 0]
+          ))),
+          lty = 2,
+          lwd = 2,
+          col = 'yellow3'
+        )
+        # Add legend
+        legend(
+          "bottomright",
+          #inset=c(0.05, -0.2),
+          legend = c("Median", "Linear trend"),
+          col = c('mediumpurple3', 'yellow3'),
+          bg = transparent(rgb(31.5, 38.6, 44.3, maxColorValue = 255), trans.val = 0.15),
+          box.col = "lightgray",
+          text.col = "lightgray",
+          lty = 2,
+          lwd = 2
         )
       })
     }
   })
   
   
+  # observeEvent(input$PlotButtonRight, {
+  #   # Right panel
+  #   municipalityDropDownListRightId = as.matrix(municipalitiesDataFrame["values.id"])[match(
+  #     as.character(input$municipalityDropDownListRight),
+  #     as.matrix(municipalitiesDataFrame["values.title"])
+  #   )]
+  #   
+  #   yearMin <- as.numeric(input$yearDropDownListRight)[1]
+  #   yearMax <- as.numeric(input$yearDropDownListRight)[2]
+  #   yearCnt <- as.numeric(input$yearDropDownListRight)[1]
+  #   
+  #   kpiResultRightVector <- c()
+  #   
+  #   while (yearCnt <= yearMax) {
+  #     kpiResultRight <-
+  #       fetchByKpi(
+  #         as.character(input$kpiDropDownListRight),
+  #         municipalityDropDownListRightId,
+  #         yearCnt
+  #       )
+  #     if (nrow(kpiResultRight) == 0) {
+  #       kpiResultRightVector <- c(kpiResultRightVector, 0)
+  #     }
+  #     else{
+  #       content = kpiResultRight[1, "values.values"]
+  #       # Some times despite having some data in the row, the value we are looking for is not found and a NA is returned
+  #       if (is.na(content[[1]][3, "value"])) {
+  #         kpiResultRightVector <-
+  #           c(kpiResultRightVector, 0)
+  #       }
+  #       else{
+  #         kpiResultRightVector <-
+  #           c(kpiResultRightVector, content[[1]][3, "value"])
+  #       }
+  #     }
+  #     yearCnt <- yearCnt + 1
+  #   }
+  #   if (sum(kpiResultRightVector) == 0) {
+  #     # print no data message
+  #     output$Barplot_Right = renderPlot({
+  #       par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
+  #       plot(
+  #         1,
+  #         1,
+  #         col.main = "lightgray",
+  #         col.lab = "lightgray",
+  #         col.axis = "lightgray",
+  #         fg = "lightgray"
+  #       )
+  #       text(1, 1, "No data available:'( blame the government", col = "red")
+  #     })
+  #   }
+  #   else{
+  #     # plot the datarina (????)
+  #     names(kpiResultRightVector) <- c(yearMin:yearMax)
+  #     output$Barplot_Right = renderPlot({
+  #       par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
+  #       barplot(
+  #         kpiResultRightVector,
+  #         main = "Holy Fudge!",
+  #         col = c("springgreen2", "mediumaquamarine"),
+  #         col.main = "lightgray",
+  #         col.lab = "lightgray",
+  #         col.axis = "lightgray",
+  #         fg = "lightgray",
+  #         border = "lightgray",
+  #         las = 3
+  #       ) +
+  #         abline(
+  #           h = mean(kpiResultRightVector[kpiResultRightVector != 0]),
+  #           lty = 3,
+  #           col = "lightgray"
+  #         )
+  #     })
+  #   }
+  # })
+  
   observeEvent(input$PlotButtonRight, {
-    # Right panel
+    # Right Panel
+    municipalityDropDownListRightHolder = as.character(input$municipalityDropDownListRight)
+    kpiDropDownListRightHolder = as.character(input$kpiDropDownListRight)
+    #print(municipalityDropDownListRightHolder)
+    #print(kpiDropDownListRightHolder)
+    
     municipalityDropDownListRightId = as.matrix(municipalitiesDataFrame["values.id"])[match(
       as.character(input$municipalityDropDownListRight),
       as.matrix(municipalitiesDataFrame["values.title"])
@@ -146,32 +253,6 @@ shinyServer(function(input, output) {
     yearCnt <- as.numeric(input$yearDropDownListRight)[1]
     
     kpiResultRightVector <- c()
-    # while (yearCnt <= yearMax) {
-    #   kpiResultRight <-
-    #     fetchByKpi(
-    #       as.character(input$kpiDropDownListRight),
-    #       municipalityDropDownListRightId,
-    #       yearCnt
-    #     )
-    #   if (nrow(kpiResultRight) == 0) {
-    #     kpiResultRightVector <- c(kpiResultRightVector, 0)
-    #   }
-    #   else{
-    #     content = kpiResultRight[1, "values.values"]
-    #     kpiResultRightVector <-
-    #       c(kpiResultRightVector, content[[1]][3, "value"])
-    #   }
-    #   yearCnt <- yearCnt + 1
-    # }
-    # names(kpiResultRightVector) <- c(yearMin:yearMax)
-    # output$Barplot_Right = renderPlot({
-    #   barplot(
-    #     kpiResultRightVector,
-    #     main = "Holy Fudge!",
-    #     col = c("springgreen2", "mediumaquamarine"),
-    #     las = 3
-    #   )
-    # })
     while (yearCnt <= yearMax) {
       kpiResultRight <-
         fetchByKpi(
@@ -199,41 +280,69 @@ shinyServer(function(input, output) {
     if (sum(kpiResultRightVector) == 0) {
       # print no data message
       output$Barplot_Right = renderPlot({
-        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
-        plot(1, 1, col = "gray", 
-             col.main="lightgray",
-             col.lab ="lightgray",
-             col.axis="lightgray",
-             fg = "lightgray")
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
+        plot(
+          1,
+          1,
+          col.main = "lightgray",
+          col.lab = "lightgray",
+          col.axis = "lightgray",
+          fg = "lightgray"
+        )
         text(1, 1, "No data available:'( blame the government", col = "red")
       })
     }
     else{
-      # plot the datarina (????)
+      # plot the datarina
       names(kpiResultRightVector) <- c(yearMin:yearMax)
       output$Barplot_Right = renderPlot({
-        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue=255))
+        par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
+        par(mar = c(5,4,4.2,2), xpd = TRUE)
         barplot(
           kpiResultRightVector,
-          main = "Holy Fudge!",
-          col = c("springgreen2", "mediumaquamarine"),
-          col.main="lightgray",
-          col.lab ="lightgray",
-          col.axis="lightgray",
+          main = paste(as.character(municipalityDropDownListRightHolder), as.character(kpiDropDownListRightHolder), "KPI historical performance."),
+          xlab = "Year",
+          ylab = "KPI performance",
+          cex.lab = 1.2,
+          col = transparent(c(
+            "springgreen2", "mediumaquamarine"
+          ), trans.val = 0.8),
+          col.main = "lightgray",
+          col.lab = "lightgray",
+          col.axis = "lightgray",
           fg = "lightgray",
           border = "lightgray",
           las = 3
         )
-      # output$Barplot_Right = renderPlot({
-      #   # Create data
-      #   data = data.frame(Year = as.character(c(yearMin:yearMax)) ,  Value =
-      #                       kpiResultRightVector)
-      #   # Barplot
-      #   ggplot(data, aes(x = Year, y = Value, fill = rgb(.5,.5,.5), color = "red")) +
-      #     geom_bar(stat = "identity")
-      #   # +
-      #   #   theme_dark()
-       })
+        abline(
+          h = mean(kpiResultRightVector[kpiResultRightVector != 0]),
+          lty = 2,
+          lwd = 2,
+          col = 'mediumpurple3'
+        )
+        abline(
+          glm(kpiResultRightVector[kpiResultRightVector != 0] ~ c(1:length(
+            kpiResultRightVector[kpiResultRightVector != 0]
+          ))),
+          lty = 2,
+          lwd = 2,
+          col = 'yellow3'
+        )
+        # Add legend
+        legend(
+          "bottomright",
+          #inset=c(0.05, -0.2),
+          legend = c("Median", "Linear trend"),
+          col = c('mediumpurple3', 'yellow3'),
+          bg = transparent(rgb(31.5, 38.6, 44.3, maxColorValue = 255), trans.val = 0.15),
+          box.col = "lightgray",
+          text.col = "lightgray",
+          lty = 2,
+          lwd = 2
+        )
+      })
     }
   })
+  
+  
 })

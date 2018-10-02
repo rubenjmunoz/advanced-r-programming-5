@@ -3,6 +3,7 @@ library(shinythemes)
 library(ggplot2)
 library(httr)
 library(jsonlite)
+library(yarrr)
 source('webService.R')
 
 shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
@@ -32,7 +33,7 @@ shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
         fluidRow( align = "center",
           actionButton(
             inputId = "PlotButtonLeft",
-            label = "2 Plot dat shit!"
+            label = "2. Plot dat shit!"
           )
         )
       ),
@@ -59,7 +60,7 @@ shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
         fluidRow( align = "center",
                   actionButton(
                     inputId = "PlotButtonRight",
-                    label = "2 Plot dat shit!"
+                    label = "2. Plot dat shit!"
                   )
         )
       ),
