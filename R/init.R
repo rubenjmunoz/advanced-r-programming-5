@@ -10,10 +10,10 @@ source('R/ui.R')
 
 #' Start Kolada Shiny App
 #'
-#' @return Returns and strts the Kolada Shiny App
+#' @return Returns and start the Kolada Shiny App
 #' @export
 #'
-#' @examples
+#' @examples startKoladaShiny()
 startKoladaShiny = function() {
   shinyApp(ui = ui, server = server)
 }
