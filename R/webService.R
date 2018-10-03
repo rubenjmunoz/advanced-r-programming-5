@@ -68,6 +68,9 @@ fetchKpis = function() {
 fetchByMunicipality = function(municipality, year){
   #http://api.kolada.se/v2/data/municipality/1860/year/2009
   
+  if (length(municipality) > 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
+  if (!is.numeric(year) | length(year) > 1) stop("year must be numeric and must have a length of 1")
+  
   endpoint = "data/municipality/"
   
   webCall = paste(base, api_version, endpoint, municipality, "/year/", year, sep="")
@@ -91,9 +94,14 @@ fetchByMunicipality = function(municipality, year){
 #'
 #' @return Returns a data.frame containing the
 #'
-#' @examples fetchByKpi(list("N00914,U00405"), 1440, list(2010, 2011, 2012))
+#' @examples fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
 fetchByKpi = function(kpi, municipality , year = list()) {
-
+  
+  if (any(grepl("[,]", kpi) == TRUE)) stop("character ',' is not allowed for kpis")
+  if (length(kpi) == 0) stop("kpi contains no entries")
+  if (!is.list(kpi)) stop("kpi must me a list")
+  if (!is.list(year)) stop("year is not a list")
+  
   endpoint = "data/kpi/"
 
   webCall = paste(base, api_version, endpoint, sep="")
@@ -128,5 +136,5 @@ fetchByKpi = function(kpi, municipality , year = list()) {
 
 #a = fetchMunicipalities()
 #b = fetchKpis()
-c = fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
-#d = fetchByMunicipality(1440)
+#c = fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
+#d = fetchByMunicipality(1440, 2012)

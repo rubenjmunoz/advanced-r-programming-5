@@ -8,8 +8,6 @@ test_that("Wrong user input is detected from fetchByMunicipality()", {
   expect_error(fetchByMunicipality(list(1440, 1441, 1442), 2012))
   expect_error(fetchByMunicipality(data.frame(), 2012))
   expect_error(fetchByMunicipality(1440, list()))
-  expect_error(fetchByMunicipality(c(1440), 2012))
-  expect_error(fetchByMunicipality(1440, c(2012)))
 })
 
 test_that("Wrong user input is detected from fetchByKpi()", {
@@ -26,17 +24,17 @@ test_that("Wrong user input is detected from fetchByKpi()", {
 
 ## Functionality
 test_that("fetchMunicipalities() is working", {
-  expect_true(is.data.frame(fetchMunicipalities(), TRUE))
+  expect_true(is.data.frame(fetchMunicipalities()))
 })
 
 test_that("fetchKpis() is working", {
-  expect_true(is.data.frame(fetchKpis(), TRUE))
+  expect_true(is.data.frame(fetchKpis()))
 })
 
 test_that("fetchMunicipalities() is working", {
-  expect_true(is.data.frame(fetchByMunicipality(1440, 2012), TRUE))
+  expect_true(is.data.frame(fetchByMunicipality(1440, 2012)))
 })
 
 test_that("fetchByKpi() is working", {
-  expect_true(is.data.frame(fetchByKpi(list("N00914,U00405"), 1440, list(2010, 2011, 2012)), TRUE))
+  expect_true(is.data.frame(fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))))
 })
