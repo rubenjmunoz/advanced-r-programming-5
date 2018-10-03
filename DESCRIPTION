@@ -8,11 +8,14 @@ Description: Shiny Web Application for analyzing <placerholder> data.
 License: Apache License
 Encoding: UTF-8
 Depends: R (>= 3.3.0)
-LazyData: true
+LazyData: false
 Suggests: testthat,
     covr
 Imports: shiny,
     httr,
     jsonlite,
-    plyr
+    plyr,
+    shinythemes,
+    ggplot2,
+    yarrr
 RoxygenNote: 6.1.0

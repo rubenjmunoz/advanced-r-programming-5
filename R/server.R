@@ -1,15 +1,16 @@
 # Call the recover function when an error occurs
 options(error = recover)
 
-# We tweak the "am" field to have nicer factor labels. Since this doesn't
-# rely on any user inputs we can do this once at startup and then use the
-# value throughout the lifetime of the application
-
-# mpgData = mtcars
-# mpgData$am = factor(mpgData$am, labels = c("Automatic", "Manual"))
-
-# Define server logic required to plot various variables against mpg
-shinyServer(function(input, output) {
+#' Shiny Server
+#'
+#' @param input 
+#' @param output 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+server = function(input, output) {
   municipalitiesDataFrame = fetchMunicipalities()
   kpisDataFrame = fetchKpis()
   yearsAsVector = c(1980:2018)
@@ -240,8 +241,6 @@ shinyServer(function(input, output) {
     # Right Panel
     municipalityDropDownListRightHolder = as.character(input$municipalityDropDownListRight)
     kpiDropDownListRightHolder = as.character(input$kpiDropDownListRight)
-    #print(municipalityDropDownListRightHolder)
-    #print(kpiDropDownListRightHolder)
     
     municipalityDropDownListRightId = as.matrix(municipalitiesDataFrame["values.id"])[match(
       as.character(input$municipalityDropDownListRight),
@@ -343,6 +342,4 @@ shinyServer(function(input, output) {
       })
     }
   })
-  
-  
-})
+}

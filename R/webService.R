@@ -9,7 +9,6 @@ api_version = "v2/"
 #' Fetch Municipalities
 #'
 #' @return Returns a data.frame containing all municipalities.
-#' @export
 #'
 #' @examples fetchMunicipalities()
 fetchMunicipalities = function() {
@@ -31,7 +30,6 @@ fetchMunicipalities = function() {
 #' Fetch KPIs
 #'
 #' @return Returns a data.frame containing all KPIs with their id and description.
-#' @export
 #'
 #' @examples fetchKpis()
 fetchKpis = function() {
@@ -65,7 +63,6 @@ fetchKpis = function() {
 #' @param year The year as integer.
 #'
 #' @return Returns a data.frame containing all KPIs belonging to the municipality in the given year.
-#' @export
 #'
 #' @examples fetchByMunicipality(1440, 2012)
 fetchByMunicipality = function(municipality, year){
@@ -93,7 +90,6 @@ fetchByMunicipality = function(municipality, year){
 #' @param year The years to fetch as a list.
 #'
 #' @return Returns a data.frame containing the
-#' @export
 #'
 #' @examples fetchByKpi(list("N00914,U00405"), 1440, list(2010, 2011, 2012))
 fetchByKpi = function(kpi, municipality , year = list()) {
@@ -132,5 +128,5 @@ fetchByKpi = function(kpi, municipality , year = list()) {
 
 #a = fetchMunicipalities()
 #b = fetchKpis()
-c = fetchByKpi(list("N00914,U00405"), 1440, list(2010, 2011, 2012))
+c = fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
 #d = fetchByMunicipality(1440)

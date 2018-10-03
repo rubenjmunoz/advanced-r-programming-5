@@ -1,12 +1,8 @@
-library(shiny)
-library(shinythemes)
-library(ggplot2)
-library(httr)
-library(jsonlite)
-library(yarrr)
-source('webService.R')
+source('R/webService.R')
+require(shiny)
+require(shinythemes)
 
-shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
+ui = shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
   12,
   h1("Kola database", align = "center"),
   h3("KPI comparison of two municipalities", align = "center"),
