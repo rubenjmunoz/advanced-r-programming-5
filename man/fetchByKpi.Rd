@@ -20,5 +20,5 @@ Returns a data.frame containing the
 Fetch By KPI
 }
 \examples{
-fetchByKpi(list("N00914,U00405"), 1440, list(2010, 2011, 2012))
+fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
 }

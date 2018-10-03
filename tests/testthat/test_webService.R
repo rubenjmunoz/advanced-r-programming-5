@@ -1,4 +1,8 @@
 context("webService")
+# Required, otherweise the unit tests are not working
+library(httr)
+library(jsonlite)
+library(plyr)
 
 ## User input
 test_that("Wrong user input is detected from fetchByMunicipality()", {

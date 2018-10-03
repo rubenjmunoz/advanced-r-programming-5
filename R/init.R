@@ -8,4 +8,12 @@
 source('R/server.R')
 source('R/ui.R')
 
-shinyApp(ui = ui, server = server)
+#' Start Kolada Shiny App
+#'
+#' @return Returns and strts the Kolada Shiny App
+#' @export
+#'
+#' @examples
+startKoladaShiny = function() {
+  shinyApp(ui = ui, server = server)
+}

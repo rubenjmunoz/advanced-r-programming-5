@@ -1,15 +1,6 @@
 # Call the recover function when an error occurs
 options(error = recover)
 
-#' Shiny Server
-#'
-#' @param input 
-#' @param output 
-#'
-#' @return
-#' @export
-#'
-#' @examples
 server = function(input, output) {
   municipalitiesDataFrame = fetchMunicipalities()
   kpisDataFrame = fetchKpis()

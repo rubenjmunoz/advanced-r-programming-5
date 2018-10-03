@@ -1,7 +1,3 @@
-library(httr)
-library(jsonlite)
-library(plyr)
-
 # Basic Data
 base = "http://api.kolada.se/"
 api_version = "v2/"

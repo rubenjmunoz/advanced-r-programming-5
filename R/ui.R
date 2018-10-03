@@ -1,4 +1,5 @@
 source('R/webService.R')
+# The following require statements are mandetory, it does not work with importing them in the DESCRIPTION file
 require(shiny)
 require(shinythemes)
 
