@@ -24,17 +24,25 @@ test_that("Wrong user input is detected from fetchByKpi()", {
 
 ## Functionality
 test_that("fetchMunicipalities() is working", {
-  expect_true(is.data.frame(fetchMunicipalities()))
+  df = fetchMunicipalities()
+  expect_true(is.data.frame(df))
+  expect_equal(df[5, "values.id"], "1984")
 })
 
 test_that("fetchKpis() is working", {
-  expect_true(is.data.frame(fetchKpis()))
+  df = fetchKpis()
+  expect_true(is.data.frame(df))
+  expect_equal(df[6, "member_id"], "U28119")
 })
 
-test_that("fetchMunicipalities() is working", {
-  expect_true(is.data.frame(fetchByMunicipality(1440, 2012)))
+test_that("fetchByMunicipalities() is working", {
+  df = fetchByMunicipality(1440, 2012)
+  expect_true(is.data.frame(df))
+  expect_equal(df[5, "values.kpi"], "N00011")
 })
 
 test_that("fetchByKpi() is working", {
-  expect_true(is.data.frame(fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))))
+  df = fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
+  expect_true(is.data.frame(df))
+  expect_equal(df[5, "values.kpi"], "U00405")
 })
