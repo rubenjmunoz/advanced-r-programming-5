@@ -12,6 +12,3 @@ Returns and start the Kolada Shiny App
 \description{
 Start Kolada Shiny App
 }
-\examples{
-startKoladaShiny()
-}
