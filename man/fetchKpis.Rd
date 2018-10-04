@@ -12,6 +12,3 @@ Returns a data.frame containing all KPIs with their id and description.
 \description{
 Fetch KPIs
 }
-\examples{
-fetchKpis()
-}
