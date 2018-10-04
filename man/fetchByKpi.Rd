@@ -14,7 +14,7 @@ fetchByKpi(kpi, municipality, year = list())
 \item{year}{The years to fetch as a list.}
 }
 \value{
-Returns a data.frame containing the
+Returns a data.frame containing the requested data
 }
 \description{
 Fetch By KPI

@@ -7,8 +7,11 @@
 startKoladaShiny()
 }
 \value{
-Returns and strts the Kolada Shiny App
+Returns and start the Kolada Shiny App
 }
 \description{
 Start Kolada Shiny App
+}
+\examples{
+startKoladaShiny()
 }
