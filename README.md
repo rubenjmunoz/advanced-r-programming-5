@@ -1,5 +1,5 @@
 # Advanced-r-programming-5
-[![Build Status](https://travis-ci.com/rubenjmunoz/advanced-r-programming-5.svg?token=3uxYSHZ47KLsHkqsdvws&branch=master)
+[![Build Status](https://travis-ci.com/rubenjmunoz/advanced-r-programming-5.svg?token=3uxYSHZ47KLsHkqsdvws&branch=master)]
 
 Repository for the course 732A94 Advanced Programming in R at Linköping University 2018. Assignment 5.
 
