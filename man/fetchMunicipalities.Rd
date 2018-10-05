@@ -12,6 +12,3 @@ Returns a data.frame containing all municipalities.
 \description{
 Fetch Municipalities
 }
-\examples{
-fetchMunicipalities()
-}

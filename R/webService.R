@@ -7,7 +7,6 @@ api_version = "v2/"
 #' @return Returns a data.frame containing all municipalities.
 #' @export
 #'
-#' @examples fetchMunicipalities()
 fetchMunicipalities = function() {
   endpoint = "municipality"
   webCall = paste(base, api_version, endpoint, sep="")
@@ -29,7 +28,6 @@ fetchMunicipalities = function() {
 #' @return Returns a data.frame containing all KPIs with their id and description.
 #' @export
 #'
-#' @examples fetchKpis()
 fetchKpis = function() {
   endpoint = "kpi_groups"
   webCall = paste(base, api_version, endpoint, sep="")
@@ -63,7 +61,6 @@ fetchKpis = function() {
 #' @return Returns a data.frame containing all KPIs belonging to the municipality in the given year.
 #' @export
 #'
-#' @examples fetchByMunicipality(1440, 2012)
 fetchByMunicipality = function(municipality, year){
   #http://api.kolada.se/v2/data/municipality/1860/year/2009
   
@@ -94,7 +91,6 @@ fetchByMunicipality = function(municipality, year){
 #' @return Returns a data.frame containing the requested data
 #' @export
 #'
-#' @examples fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
 fetchByKpi = function(kpi, municipality , year = list()) {
   
   if (any(grepl("[,]", kpi) == TRUE)) stop("character ',' is not allowed for kpis")

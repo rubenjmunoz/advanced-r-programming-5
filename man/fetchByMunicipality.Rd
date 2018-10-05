@@ -17,6 +17,3 @@ Returns a data.frame containing all KPIs belonging to the municipality in the gi
 \description{
 Fetch By Municipality
 }
-\examples{
-fetchByMunicipality(1440, 2012)
-}
