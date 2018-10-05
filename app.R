@@ -13,7 +13,7 @@ require(plyr)
 require(ggplot2)
 require(yarrr)
 
-#source('webService.R')
+source('R/webService.R')
 
 # Call the recover function when an error occurs
 options(error = recover)
