@@ -95,7 +95,7 @@ fetchByKpi = function(kpi, municipality , year = list()) {
   
   if (any(grepl("[,]", kpi) == TRUE)) stop("character ',' is not allowed for kpis")
   if (length(kpi) == 0) stop("kpi contains no entries")
-  if (!is.list(kpi)) stop("kpi must me a list")
+  if (!is.list(kpi)) stop("kpi must be a list")
   if (!is.list(year)) stop("year is not a list")
   
   endpoint = "data/kpi/"
