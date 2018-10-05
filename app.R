@@ -59,6 +59,47 @@ server = function(input, output) {
       label = "Select KPI:"
     )
   })
+  #left panel filtered options based on city name
+  observeEvent(input$municipalityDropDownListLeft, {
+    #the Municipality name is chosen, and the ID is found
+    municipalityDropDownListLeftHolder = as.character(input$municipalityDropDownListLeft)
+    kpiDropDownListLeftHolder = as.character(input$kpiDropDownListLeft)
+    municipalityDropDownListLeftId = as.matrix(municipalitiesDataFrame["values.id"])[match(
+      as.character(input$municipalityDropDownListLeft),
+      as.matrix(municipalitiesDataFrame["values.title"])
+    )]
+    
+    #the call is made to fetch all the available KPI and save it filtered as a list
+    #(try to make it only once every time the app is started)
+    AllKpi = as.matrix(kpisDataFrame["member_id"])
+    print(length(AllKpi))
+    #kpi preparation in to a nice string with comas
+    kpiString <- c("")
+    for (i in 1:209) {
+      kpiString <- paste(kpiString, AllKpi[i, ], ",")
+    }
+    kpiString <- paste(kpiString, AllKpi[length(AllKpi), ])
+
+    
+    #years preparation in to a nice string with comas
+    yearsString <- c("")
+    for (i in 1:(length(yearsAsVector) - 1)) {
+      yearsString <- paste(yearsString, yearsAsVector[i], ",")
+    }
+    yearsString <- paste(yearsString, yearsAsVector[length(yearsAsVector)])
+
+    
+    
+    #the call is made with the KPI list, the chosen municipality, and the year range as a list
+    #print(fetchByKpi(as.list(AllKpi), as.integer(municipalityDropDownListLeftId), as.list(yearsAsVector)))
+    
+
+    mensajerino = paste("http://api.kolada.se/v2/data/kpi/",kpiString,"/municipality/",municipalityDropDownListLeftId,"/year/",yearsString)
+    print(mensajerino)
+    response = GET(mensajerino)
+    print(response)
+    
+  })
   
   observeEvent(input$PlotButtonLeft, {
     # Left Panel
@@ -75,15 +116,12 @@ server = function(input, output) {
     yearMin <- as.numeric(input$yearDropDownListLeft)[1]
     yearMax <- as.numeric(input$yearDropDownListLeft)[2]
     yearCnt <- as.numeric(input$yearDropDownListLeft)[1]
-    
     kpiResultLeftVector <- c()
     while (yearCnt <= yearMax) {
       kpiResultLeft <-
-        fetchByKpi(
-          as.list(as.character(input$kpiDropDownListLeft)),
-          municipalityDropDownListLeftId,
-          as.list(yearCnt)
-        )
+        fetchByKpi(as.list(as.character(input$kpiDropDownListLeft)),
+                   municipalityDropDownListLeftId,
+                   as.list(yearCnt))
       if (nrow(kpiResultLeft) == 0) {
         kpiResultLeftVector <- c(kpiResultLeftVector, 0)
       }
@@ -121,10 +159,14 @@ server = function(input, output) {
       names(kpiResultLeftVector) <- c(yearMin:yearMax)
       output$Barplot_Left = renderPlot({
         par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
-        par(mar = c(5,4,4.2,2), xpd = TRUE)
+        par(mar = c(5, 4, 4.2, 2), xpd = TRUE)
         barplot(
           kpiResultLeftVector,
-          main = paste(as.character(municipalityDropDownListLeftHolder), as.character(kpiDropDownListLeftHolder), "KPI historical performance."),
+          main = paste(
+            as.character(municipalityDropDownListLeftHolder),
+            as.character(kpiDropDownListLeftHolder),
+            "KPI historical performance."
+          ),
           xlab = "Year",
           ylab = "KPI performance",
           cex.lab = 1.2,
@@ -168,83 +210,6 @@ server = function(input, output) {
     }
   })
   
-  
-  # observeEvent(input$PlotButtonRight, {
-  #   # Right panel
-  #   municipalityDropDownListRightId = as.matrix(municipalitiesDataFrame["values.id"])[match(
-  #     as.character(input$municipalityDropDownListRight),
-  #     as.matrix(municipalitiesDataFrame["values.title"])
-  #   )]
-  #   
-  #   yearMin <- as.numeric(input$yearDropDownListRight)[1]
-  #   yearMax <- as.numeric(input$yearDropDownListRight)[2]
-  #   yearCnt <- as.numeric(input$yearDropDownListRight)[1]
-  #   
-  #   kpiResultRightVector <- c()
-  #   
-  #   while (yearCnt <= yearMax) {
-  #     kpiResultRight <-
-  #       fetchByKpi(
-  #         as.character(input$kpiDropDownListRight),
-  #         municipalityDropDownListRightId,
-  #         yearCnt
-  #       )
-  #     if (nrow(kpiResultRight) == 0) {
-  #       kpiResultRightVector <- c(kpiResultRightVector, 0)
-  #     }
-  #     else{
-  #       content = kpiResultRight[1, "values.values"]
-  #       # Some times despite having some data in the row, the value we are looking for is not found and a NA is returned
-  #       if (is.na(content[[1]][3, "value"])) {
-  #         kpiResultRightVector <-
-  #           c(kpiResultRightVector, 0)
-  #       }
-  #       else{
-  #         kpiResultRightVector <-
-  #           c(kpiResultRightVector, content[[1]][3, "value"])
-  #       }
-  #     }
-  #     yearCnt <- yearCnt + 1
-  #   }
-  #   if (sum(kpiResultRightVector) == 0) {
-  #     # print no data message
-  #     output$Barplot_Right = renderPlot({
-  #       par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
-  #       plot(
-  #         1,
-  #         1,
-  #         col.main = "lightgray",
-  #         col.lab = "lightgray",
-  #         col.axis = "lightgray",
-  #         fg = "lightgray"
-  #       )
-  #       text(1, 1, "No data available:'( blame the government", col = "red")
-  #     })
-  #   }
-  #   else{
-  #     # plot the datarina (????)
-  #     names(kpiResultRightVector) <- c(yearMin:yearMax)
-  #     output$Barplot_Right = renderPlot({
-  #       par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
-  #       barplot(
-  #         kpiResultRightVector,
-  #         main = "Holy Fudge!",
-  #         col = c("springgreen2", "mediumaquamarine"),
-  #         col.main = "lightgray",
-  #         col.lab = "lightgray",
-  #         col.axis = "lightgray",
-  #         fg = "lightgray",
-  #         border = "lightgray",
-  #         las = 3
-  #       ) +
-  #         abline(
-  #           h = mean(kpiResultRightVector[kpiResultRightVector != 0]),
-  #           lty = 3,
-  #           col = "lightgray"
-  #         )
-  #     })
-  #   }
-  # })
   
   observeEvent(input$PlotButtonRight, {
     # Right Panel
@@ -305,10 +270,14 @@ server = function(input, output) {
       names(kpiResultRightVector) <- c(yearMin:yearMax)
       output$Barplot_Right = renderPlot({
         par(bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255))
-        par(mar = c(5,4,4.2,2), xpd = TRUE)
+        par(mar = c(5, 4, 4.2, 2), xpd = TRUE)
         barplot(
           kpiResultRightVector,
-          main = paste(as.character(municipalityDropDownListRightHolder), as.character(kpiDropDownListRightHolder), "KPI historical performance."),
+          main = paste(
+            as.character(municipalityDropDownListRightHolder),
+            as.character(kpiDropDownListRightHolder),
+            "KPI historical performance."
+          ),
           xlab = "Year",
           ylab = "KPI performance",
           cex.lab = 1.2,
@@ -329,9 +298,9 @@ server = function(input, output) {
           col = 'mediumpurple3'
         )
         abline(
-          glm(kpiResultRightVector[kpiResultRightVector != 0] ~ c(1:length(
-            kpiResultRightVector[kpiResultRightVector != 0]
-          ))),
+          glm(kpiResultRightVector[kpiResultRightVector != 0] ~ c(
+            1:length(kpiResultRightVector[kpiResultRightVector != 0])
+          )),
           lty = 2,
           lwd = 2,
           col = 'yellow3'
@@ -353,7 +322,7 @@ server = function(input, output) {
   })
 }
 
-ui = shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
+ui = shinyUI(fluidPage(theme = shinytheme("slate"), fluidRow(column(
   12,
   h1("Kola database", align = "center"),
   h3("KPI comparison of two municipalities", align = "center"),
@@ -377,11 +346,10 @@ ui = shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
           value = c(1992, 2004),
           width = "100%"
         ),
-        fluidRow( align = "center",
-                  actionButton(
-                    inputId = "PlotButtonLeft",
-                    label = "2. Plot dat shit!"
-                  )
+        fluidRow(
+          align = "center",
+          actionButton(inputId = "PlotButtonLeft",
+                       label = "2. Plot dat shit!")
         )
       ),
       fluidRow(plotOutput("Barplot_Left"))
@@ -404,11 +372,10 @@ ui = shinyUI(fluidPage( theme = shinytheme("slate"), fluidRow(column(
           value = c(1992, 2004),
           width = "100%"
         ),
-        fluidRow( align = "center",
-                  actionButton(
-                    inputId = "PlotButtonRight",
-                    label = "2. Plot dat shit!"
-                  )
+        fluidRow(
+          align = "center",
+          actionButton(inputId = "PlotButtonRight",
+                       label = "2. Plot dat shit!")
         )
       ),
       fluidRow(plotOutput("Barplot_Right"))
