@@ -7,6 +7,8 @@
 
 require(shiny)
 require(shinythemes)
+require(httr)
+require(jsonlite)
 
 #source('R/webService.R')
 
