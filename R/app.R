@@ -9,8 +9,11 @@ require(shiny)
 require(shinythemes)
 require(httr)
 require(jsonlite)
+require(plyr)
+require(ggplot2)
+require(yarrr)
 
-#source('R/webService.R')
+source('webService.R')
 
 # Call the recover function when an error occurs
 options(error = recover)
@@ -19,6 +22,7 @@ server = function(input, output) {
   municipalitiesDataFrame = fetchMunicipalities()
   kpisDataFrame = fetchKpis()
   yearsAsVector = c(1980:2018)
+  
   
   # Municipality Dropdown Left
   output$municipalityDropDownListLeft = renderUI({
@@ -76,9 +80,9 @@ server = function(input, output) {
     while (yearCnt <= yearMax) {
       kpiResultLeft <-
         fetchByKpi(
-          as.character(input$kpiDropDownListLeft),
+          as.list(as.character(input$kpiDropDownListLeft)),
           municipalityDropDownListLeftId,
-          yearCnt
+          as.list(yearCnt)
         )
       if (nrow(kpiResultLeft) == 0) {
         kpiResultLeftVector <- c(kpiResultLeftVector, 0)
