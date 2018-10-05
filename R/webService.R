@@ -1,3 +1,6 @@
+require(httr)
+require(jsonlite)
+
 # Basic Data
 base = "http://api.kolada.se/"
 api_version = "v2/"
