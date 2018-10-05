@@ -16,10 +16,10 @@ The packages needed are [httr](https://cran.r-project.org/web/packages/httr/inde
 - ~~Copy left side code to the right side~~
 - Implement selection of multiple KPIs
 - ~~More fancy stuff like color, etc.~~
-- ~~CPackage documentation~~C
-- ~~CUnit Tests~~C
+- ~~Package documentation~~
+- ~~Unit Tests~~
 - Vignette
-- ~~CTravisCI and create R package~~C
+- ~~TravisCI and create R package~~
 
 ## Example for REST-Call
 This is an example how the libraries can be used to fetch data. Be aware, that this example does not handle pagination.
