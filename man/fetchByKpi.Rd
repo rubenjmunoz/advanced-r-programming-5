@@ -4,7 +4,7 @@
 \alias{fetchByKpi}
 \title{Fetch By KPI}
 \usage{
-fetchByKpi(kpi, municipality, year = list())
+fetchByKpi(kpi, municipality, year = c())
 }
 \arguments{
 \item{kpi}{Id of the KPIs as a list.}
