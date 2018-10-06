@@ -4,21 +4,18 @@
 \alias{fetchByKpi}
 \title{Fetch By KPI}
 \usage{
-fetchByKpi(kpi, municipality, year = 0)
+fetchByKpi(kpi, municipality, year = list())
 }
 \arguments{
-\item{kpi}{Id of the KPIs as a list. Seperator is a ','.}
+\item{kpi}{Id of the KPIs as a list.}
 
 \item{municipality}{Id of the municipality.}
 
-\item{year}{(optional) The year as integer.}
+\item{year}{The years to fetch as a list.}
 }
 \value{
-Returns a data.frame containing the
+Returns a data.frame containing the requested data
 }
 \description{
 Fetch By KPI
-}
-\examples{
-fetchByKpi(list("N00914,U00405"), 1440, 2012)
 }

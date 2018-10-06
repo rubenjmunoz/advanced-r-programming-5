@@ -1,7 +1,3 @@
-library(httr)
-library(jsonlite)
-library(plyr)
-
 # Basic Data
 base = "http://api.kolada.se/"
 api_version = "v2/"
@@ -11,7 +7,6 @@ api_version = "v2/"
 #' @return Returns a data.frame containing all municipalities.
 #' @export
 #'
-#' @examples fetchMunicipalities()
 fetchMunicipalities = function() {
   endpoint = "municipality"
   webCall = paste(base, api_version, endpoint, sep="")
@@ -33,7 +28,6 @@ fetchMunicipalities = function() {
 #' @return Returns a data.frame containing all KPIs with their id and description.
 #' @export
 #'
-#' @examples fetchKpis()
 fetchKpis = function() {
   endpoint = "kpi_groups"
   webCall = paste(base, api_version, endpoint, sep="")
@@ -67,9 +61,11 @@ fetchKpis = function() {
 #' @return Returns a data.frame containing all KPIs belonging to the municipality in the given year.
 #' @export
 #'
-#' @examples fetchByMunicipality(1440, 2012)
 fetchByMunicipality = function(municipality, year){
   #http://api.kolada.se/v2/data/municipality/1860/year/2009
+  
+  if (length(municipality) > 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
+  if (!is.numeric(year) | length(year) > 1) stop("year must be numeric and must have a length of 1")
   
   endpoint = "data/municipality/"
   
@@ -88,16 +84,20 @@ fetchByMunicipality = function(municipality, year){
 
 #' Fetch By KPI
 #'
-#' @param kpi Id of the KPIs as a list. Seperator is a ','.
+#' @param kpi Id of the KPIs as a list.
 #' @param municipality Id of the municipality.
-#' @param year (optional) The year as integer.
+#' @param year The years to fetch as a list.
 #'
-#' @return Returns a data.frame containing the
+#' @return Returns a data.frame containing the requested data
 #' @export
 #'
-#' @examples fetchByKpi(list("N00914,U00405"), 1440, 2012)
-fetchByKpi = function(kpi, municipality , year = 0) {
-
+fetchByKpi = function(kpi, municipality , year = list()) {
+  
+  if (any(grepl("[,]", kpi) == TRUE)) stop("character ',' is not allowed for kpis")
+  if (length(kpi) == 0) stop("kpi contains no entries")
+  if (!is.list(kpi)) stop("kpi must be a list")
+  if (!is.list(year)) stop("year is not a list")
+  
   endpoint = "data/kpi/"
 
   webCall = paste(base, api_version, endpoint, sep="")
@@ -109,7 +109,14 @@ fetchByKpi = function(kpi, municipality , year = 0) {
   
   webCall = paste (webCall, "/municipality/", municipality, sep="")
 
-  if (year > 0) webCall = paste(webCall, "/year/", year, sep="")
+  if (length(year) > 0) {
+    webCall = paste(webCall, "/year/", sep="")
+    
+    for (j in 1:length(year)) {
+      webCall = paste(webCall, year[j], sep="")
+      if (j != length(year)) webCall = paste(webCall, ",", sep="")
+    }
+  }
   
   # Execution
   response = GET(webCall)
@@ -125,5 +132,5 @@ fetchByKpi = function(kpi, municipality , year = 0) {
 
 #a = fetchMunicipalities()
 #b = fetchKpis()
-c = fetchByKpi(list("N00914,U00405"), 1440, 2012)
-#d = fetchByMunicipality(1440)
+#c = fetchByKpi(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
+#d = fetchByMunicipality(1440, 2012)
