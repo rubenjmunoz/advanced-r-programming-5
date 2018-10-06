@@ -11,7 +11,7 @@ fetchByKpi(kpi, municipality, year = c())
 
 \item{municipality}{Id of the municipality.}
 
-\item{year}{The years to fetch as a list.}
+\item{year}{The years to fetch as a vector}
 }
 \value{
 Returns a data.frame containing the requested data

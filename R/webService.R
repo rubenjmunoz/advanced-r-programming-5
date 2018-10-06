@@ -92,7 +92,7 @@ fetchByMunicipality = function(municipality, year){
 #'
 #' @param kpi Id of the KPIs as a list.
 #' @param municipality Id of the municipality.
-#' @param year The years to fetch as a list.
+#' @param year The years to fetch as a vector
 #'
 #' @return Returns a data.frame containing the requested data
 #' @export
@@ -102,7 +102,7 @@ fetchByKpi = function(kpi, municipality , year = c()) {
   if (any(grepl("[,]", kpi) == TRUE)) stop("character ',' is not allowed for kpis")
   if (length(kpi) == 0) stop("kpi contains no entries")
   if (!is.list(kpi)) stop("kpi must be a list")
-  if (!is.vector(year)) stop("year is not a list")
+  if (!is.vector(year)) stop("year is not a vector")
   
   endpoint = "data/kpi/"
 
