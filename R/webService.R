@@ -64,7 +64,7 @@ fetchKpis = function() {
 fetchByMunicipality = function(municipality, year){
   #http://api.kolada.se/v2/data/municipality/1860/year/2009
   
-  if (length(municipality) > 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
+  if (length(municipality) != 1 | !is.numeric(municipality)) stop("municipality parameter must be a numeric scalar.")
   if (!is.numeric(year) | !is.vector(year)) stop("year must be a numeric vector")
   
   endpoint = "data/municipality/"
@@ -80,6 +80,7 @@ fetchByMunicipality = function(municipality, year){
   response = GET(webCall)
   
   # Check Server Response
+  print(response)
   if (response["status_code"] < 200 | response["status_code"] > 299) stop("HTTP Stauts code it not OK (not in range 200-299).")
   
   # Deserialization

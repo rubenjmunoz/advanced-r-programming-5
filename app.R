@@ -23,12 +23,28 @@ server = function(input, output) {
   kpisDataFrame = fetchKpis()
   yearsAsVector = c(1980:2018)
   
+  kpiListByMunicipalitySelection = reactive({
+    ## Get available KPIs
+    municipalityDropDownListLeftId = as.numeric(as.matrix(municipalitiesDataFrame["values.id"])[match(
+      as.character(input$municipalityDropDownListLeft),
+      as.matrix(municipalitiesDataFrame["values.title"])
+    )])
+    
+    if (!is.numeric(municipalityDropDownListLeftId || length(municipalityDropDownListLeftId) != 1)) return(c(NoData = 1))
+    
+    availableKpis = fetchByMunicipality(municipality = municipalityDropDownListLeftId, year = yearsAsVector)
+    setKpi = unique(availableKpis["values.kpi"])
+    return(setKpi)
+  })
+  
   
   # Municipality Dropdown Left
   output$municipalityDropDownListLeft = renderUI({
     selectInput(
       inputId = "municipalityDropDownListLeft",
       choices = as.matrix(municipalitiesDataFrame["values.title"]),
+      #kpiListByMunicipalitySelection()
+      #choices = kpiListByMunicipalitySelection(),
       label = "Select Municipality:"
     )
   })
@@ -46,9 +62,14 @@ server = function(input, output) {
   output$kpiDropDownListLeft = renderUI({
     selectInput(
       inputId = "kpiDropDownListLeft",
-      choices = as.matrix(kpisDataFrame["member_id"]),
+      choices = kpiListByMunicipalitySelection(),
       label = "Select KPI:"
     )
+    #selectInput(
+    #  inputId = "kpiDropDownListLeft",
+    #  choices = as.matrix(kpisDataFrame["member_id"]),
+    #  label = "Select KPI:"
+    #)
   })
   
   # Kpi Dropdown Right
@@ -70,38 +91,15 @@ server = function(input, output) {
     )]
     
     ## Get available KPIs
-    availableKpis = fetchByMunicipality(municipality = municipalityDropDownListLeftHolder, year = as.lis(yearsAsVector))
+    #municipalityDropDownListLeftId = as.numeric(as.matrix(municipalitiesDataFrame["values.id"])[match(
+    #  as.character(input$municipalityDropDownListLeft),
+    #  as.matrix(municipalitiesDataFrame["values.title"])
+    #)])
+    #
+    #availableKpis = fetchByMunicipality(municipality = municipalityDropDownListLeftId, year = yearsAsVector)
+    #setKpi = unique(availableKpis["values.kpi"])
     
-    
-    #the call is made to fetch all the available KPI and save it filtered as a list
-    #(try to make it only once every time the app is started)
-    AllKpi = as.matrix(kpisDataFrame["member_id"])
-    print(length(AllKpi))
-    #kpi preparation in to a nice string with comas
-    kpiString <- c("")
-    for (i in 1:209) {
-      kpiString <- paste(kpiString, AllKpi[i, ], ",", sep = "")
-    }
-    kpiString <- paste(kpiString, AllKpi[length(AllKpi), ], sep = "")
-
-    
-    #years preparation in to a nice string with comas
-    yearsString <- c("")
-    for (i in 1:(length(yearsAsVector) - 1)) {
-      yearsString <- paste(yearsString, yearsAsVector[i], ",", sep = "")
-    }
-    yearsString <- paste(yearsString, yearsAsVector[length(yearsAsVector)], sep = "")
-
-    
-    
-    #the call is made with the KPI list, the chosen municipality, and the year range as a list
-    #print(fetchByKpi(as.list(AllKpi), as.integer(municipalityDropDownListLeftId), as.list(yearsAsVector)))
-    
-
-    mensajerino = paste("http://api.kolada.se/v2/data/kpi/",kpiString,"/municipality/",municipalityDropDownListLeftId,"/year/",yearsString, sep = "")
-    print(mensajerino)
-    response = GET(mensajerino)
-    print(response)
+    ### Continue here
     
   })
   
