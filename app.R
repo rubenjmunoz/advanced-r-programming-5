@@ -229,9 +229,9 @@ server = function(input, output) {
     while (yearCnt <= yearMax) {
       kpiResultRight <-
         fetchByKpi(
-          as.character(input$kpiDropDownListRight),
+          as.list(as.character(input$kpiDropDownListRight)),
           municipalityDropDownListRightId,
-          yearCnt
+          as.list(yearCnt)
         )
       if (nrow(kpiResultRight) == 0) {
         kpiResultRightVector <- c(kpiResultRightVector, 0)
