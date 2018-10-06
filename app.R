@@ -18,28 +18,30 @@ source('R/webService.R')
 # Call the recover function when an error occurs
 options(error = recover)
 
-server = function(input, output) {
+server = function(input, output, session) {
   municipalitiesDataFrame = fetchMunicipalities()
   kpisDataFrame = fetchKpis()
   yearsAsVector = c(1980:2018)
   
-  kpiListByMunicipalitySelection = reactive({
+  kpiListByMunicipalitySelection = function(){
     ## Get available KPIs
+    x = input$municipalityDropDownListLeft
     municipalityDropDownListLeftId = as.numeric(as.matrix(municipalitiesDataFrame["values.id"])[match(
       as.character(input$municipalityDropDownListLeft),
       as.matrix(municipalitiesDataFrame["values.title"])
     )])
-    
-    if (!is.numeric(municipalityDropDownListLeftId || length(municipalityDropDownListLeftId) != 1)) return(c(NoData = 1))
+    a = !is.numeric(municipalityDropDownListLeftId)
+      b = length(municipalityDropDownListLeftId) != 1
+    if (!is.numeric(municipalityDropDownListLeftId) | length(municipalityDropDownListLeftId) != 1) return(c(NoData = 1))
     
     availableKpis = fetchByMunicipality(municipality = municipalityDropDownListLeftId, year = yearsAsVector)
     setKpi = unique(availableKpis["values.kpi"])
     return(setKpi)
-  })
-  
+  }
   
   # Municipality Dropdown Left
   output$municipalityDropDownListLeft = renderUI({
+    #print(municipalitiesDataFrame)
     selectInput(
       inputId = "municipalityDropDownListLeft",
       choices = as.matrix(municipalitiesDataFrame["values.title"]),
@@ -62,7 +64,7 @@ server = function(input, output) {
   output$kpiDropDownListLeft = renderUI({
     selectInput(
       inputId = "kpiDropDownListLeft",
-      choices = kpiListByMunicipalitySelection(),
+      choices = as.matrix(kpisDataFrame["member_id"]),
       label = "Select KPI:"
     )
     #selectInput(
@@ -82,13 +84,14 @@ server = function(input, output) {
   })
   #left panel filtered options based on city name
   observeEvent(input$municipalityDropDownListLeft, {
+    
     #the Municipality name is chosen, and the ID is found
-    municipalityDropDownListLeftHolder = as.character(input$municipalityDropDownListLeft)
-    kpiDropDownListLeftHolder = as.character(input$kpiDropDownListLeft)
-    municipalityDropDownListLeftId = as.matrix(municipalitiesDataFrame["values.id"])[match(
-      as.character(input$municipalityDropDownListLeft),
-      as.matrix(municipalitiesDataFrame["values.title"])
-    )]
+    #municipalityDropDownListLeftHolder = as.character(input$municipalityDropDownListLeft)
+    #kpiDropDownListLeftHolder = as.character(input$kpiDropDownListLeft)
+    #municipalityDropDownListLeftId = as.matrix(municipalitiesDataFrame["values.id"])[match(
+    #  as.character(input$municipalityDropDownListLeft),
+    #  as.matrix(municipalitiesDataFrame["values.title"])
+    #)]
     
     ## Get available KPIs
     #municipalityDropDownListLeftId = as.numeric(as.matrix(municipalitiesDataFrame["values.id"])[match(
@@ -101,6 +104,10 @@ server = function(input, output) {
     
     ### Continue here
     
+    kpis = kpiListByMunicipalitySelection()
+    print(kpis)
+    updateSelectInput(session, "kpiDropDownListLeft",
+                 choices = kpis) # remove selection
   })
   
   observeEvent(input$PlotButtonLeft, {
