@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Maximilian Pfundstein, Annalena Erhard, Ruben Munoz" />
+
+<meta name="date" content="2018-10-06" />
+
+<title>API R projects</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">API R projects</h1>
+<h4 class="author"><em>Maximilian Pfundstein, Annalena Erhard, Ruben Munoz</em></h4>
+<h4 class="date"><em>2018-10-06</em></h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#usage-methods">Usage Methods</a><ul>
+<li><a href="#fetchmunicipalities">fetchMunicipalities</a></li>
+<li><a href="#fetchkpis">fetchKpis</a></li>
+<li><a href="#fetchbymunicipality">fetchByMunicipality</a></li>
+<li><a href="#fetchbykpi">fetchByKpi</a></li>
+<li><a href="#example-api">Example API</a></li>
+</ul></li>
+</ul>
+</div>
+
+<pre><code>#&gt; Warning: package 'httr' was built under R version 3.4.4
+#&gt; Warning: package 'jsonlite' was built under R version 3.4.4
+#&gt; Warning: package 'plyr' was built under R version 3.4.4</code></pre>
+<div id="introduction" class="section level2 tabset">
+<h2>Introduction</h2>
+<p>This package uses R to connect to a web API. It uses a Shiny App, in which two seperately constructed plots can be compared with each other. For each of the plots the user can select municipalities KPI’s and years. For every selection an API call is set to draw the data.</p>
+</div>
+<div id="usage-methods" class="section level2 tabset tabset-fade tabset-pills">
+<h2>Usage Methods</h2>
+<div id="fetchmunicipalities" class="section level3">
+<h3>fetchMunicipalities</h3>
+<p>A method call that gives back a dataset with all municipalities, their count, id and value type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">fetchMunicipalities</span>()
+<span class="co">#&gt;     count values.id                 values.title values.type</span>
+<span class="co">#&gt; 1     312      1440                          Ale           K</span>
+<span class="co">#&gt; 2     312      1489                     Alingsås           K</span>
+<span class="co">#&gt; 3     312      0764                      Alvesta           K</span>
+<span class="co">#&gt; 4     312      0604                        Aneby           K</span>
+<span class="co">#&gt; 5     312      1984                       Arboga           K</span>
+<span class="co">#&gt; 6     312      2506                     Arjeplog           K</span>
+<span class="co">#&gt; 7     312      2505                   Arvidsjaur           K</span>
+<span class="co">#&gt; 8     312      1784                       Arvika           K</span>
+<span class="co">#&gt; 9     312      1882                    Askersund           K</span>
+<span class="co">#&gt; 10    312      2084                       Avesta           K</span>
+<span class="co">#&gt; 11    312      1460                   Bengtsfors           K</span>
+<span class="co">#&gt; 12    312      2326                         Berg           K</span>
+<span class="co">#&gt; 13    312      2403                     Bjurholm           K</span>
+<span class="co">#&gt; 14    312      1260                         Bjuv           K</span>
+<span class="co">#&gt; 15    312      2582                        Boden           K</span>
+<span class="co">#&gt; 16    312      1443                    Bollebygd           K</span>
+<span class="co">#&gt; 17    312      2183                      Bollnäs           K</span>
+<span class="co">#&gt; 18    312      0885                     Borgholm           K</span>
+<span class="co">#&gt; 19    312      2081                     Borlänge           K</span>
+<span class="co">#&gt; 20    312      1490                        Borås           K</span>
+<span class="co">#&gt; 21    312      0127                     Botkyrka           K</span>
+<span class="co">#&gt; 22    312      0560                      Boxholm           K</span>
+<span class="co">#&gt; 23    312      1272                     Bromölla           K</span>
+<span class="co">#&gt; 24    312      2305                       Bräcke           K</span>
+<span class="co">#&gt; 25    312      1231                       Burlöv           K</span>
+<span class="co">#&gt; 26    312      1278                       Båstad           K</span>
+<span class="co">#&gt; 27    312      1438                      Dals-Ed           K</span>
+<span class="co">#&gt; 28    312      0162                     Danderyd           K</span>
+<span class="co">#&gt; 29    312      1862                    Degerfors           K</span>
+<span class="co">#&gt; 30    312      2425                      Dorotea           K</span>
+<span class="co">#&gt; 31    312      1730                          Eda           K</span>
+<span class="co">#&gt; 32    312      0125                        Ekerö           K</span>
+<span class="co">#&gt; 33    312      0686                        Eksjö           K</span>
+<span class="co">#&gt; 34    312      0862                     Emmaboda           K</span>
+<span class="co">#&gt; 35    312      0381                     Enköping           K</span>
+<span class="co">#&gt; 36    312      0484                   Eskilstuna           K</span>
+<span class="co">#&gt; 37    312      1285                        Eslöv           K</span>
+<span class="co">#&gt; 38    312      1445                      Essunga           K</span>
+<span class="co">#&gt; 39    312      1982                     Fagersta           K</span>
+<span class="co">#&gt; 40    312      1382                   Falkenberg           K</span>
+<span class="co">#&gt; 41    312      1499                    Falköping           K</span>
+<span class="co">#&gt; 42    312      2080                        Falun           K</span>
+<span class="co">#&gt; 43    312      1782                    Filipstad           K</span>
+<span class="co">#&gt; 44    312      0562                     Finspång           K</span>
+<span class="co">#&gt; 45    312      0482                         Flen           K</span>
+<span class="co">#&gt; 46    312      1763                     Forshaga           K</span>
+<span class="co">#&gt; 47    312      1439                   Färgelanda           K</span>
+<span class="co">#&gt; 48    312      2026                       Gagnef           K</span>
+<span class="co">#&gt; 49    312      0662                     Gislaved           K</span>
+<span class="co">#&gt; 50    312      0461                       Gnesta           K</span>
+<span class="co">#&gt; 51    312      0617                       Gnosjö           K</span>
+<span class="co">#&gt; 52    312      0980                      Gotland           K</span>
+<span class="co">#&gt; 53    312      1764                        Grums           K</span>
+<span class="co">#&gt; 54    312      1444                     Grästorp           K</span>
+<span class="co">#&gt; 55    312      1447                    Gullspång           K</span>
+<span class="co">#&gt; 56    312      2523                    Gällivare           K</span>
+<span class="co">#&gt; 57    312      2180                        Gävle           K</span>
+<span class="co">#&gt; 58    312      1480                     Göteborg           K</span>
+<span class="co">#&gt; 59    312      1471                       Götene           K</span>
+<span class="co">#&gt; 60    312      0643                         Habo           K</span>
+<span class="co">#&gt; 61    312      1783                      Hagfors           K</span>
+<span class="co">#&gt; 62    312      1861                    Hallsberg           K</span>
+<span class="co">#&gt; 63    312      1961                Hallstahammar           K</span>
+<span class="co">#&gt; 64    312      1380                     Halmstad           K</span>
+<span class="co">#&gt; 65    312      1761                      Hammarö           K</span>
+<span class="co">#&gt; 66    312      0136                      Haninge           K</span>
+<span class="co">#&gt; 67    312      2583                    Haparanda           K</span>
+<span class="co">#&gt; 68    312      0331                         Heby           K</span>
+<span class="co">#&gt; 69    312      2083                     Hedemora           K</span>
+<span class="co">#&gt; 70    312      1283                  Helsingborg           K</span>
+<span class="co">#&gt; 71    312      1466                   Herrljunga           K</span>
+<span class="co">#&gt; 72    312      1497                          Hjo           K</span>
+<span class="co">#&gt; 73    312      2104                       Hofors           K</span>
+<span class="co">#&gt; 74    312      0126                     Huddinge           K</span>
+<span class="co">#&gt; 75    312      2184                   Hudiksvall           K</span>
+<span class="co">#&gt; 76    312      0860                    Hultsfred           K</span>
+<span class="co">#&gt; 77    312      1315                        Hylte           K</span>
+<span class="co">#&gt; 78    312      0305                         Håbo           K</span>
+<span class="co">#&gt; 79    312      1863                    Hällefors           K</span>
+<span class="co">#&gt; 80    312      2361                   Härjedalen           K</span>
+<span class="co">#&gt; 81    312      2280                    Härnösand           K</span>
+<span class="co">#&gt; 82    312      1401                      Härryda           K</span>
+<span class="co">#&gt; 83    312      1293                   Hässleholm           K</span>
+<span class="co">#&gt; 84    312      1284                      Höganäs           K</span>
+<span class="co">#&gt; 85    312      0821                       Högsby           K</span>
+<span class="co">#&gt; 86    312      1266                        Hörby           K</span>
+<span class="co">#&gt; 87    312      1267                         Höör           K</span>
+<span class="co">#&gt; 88    312      2510                     Jokkmokk           K</span>
+<span class="co">#&gt; 89    312      0023     Jämtlands läns landsting           L</span>
+<span class="co">#&gt; 90    312      0123                     Järfälla           K</span>
+<span class="co">#&gt; 91    312      0680                    Jönköping           K</span>
+<span class="co">#&gt; 92    312      2514                        Kalix           K</span>
+<span class="co">#&gt; 93    312      0880                       Kalmar           K</span>
+<span class="co">#&gt; 94    312      1446                    Karlsborg           K</span>
+<span class="co">#&gt; 95    312      1082                    Karlshamn           K</span>
+<span class="co">#&gt; 96    312      1883                    Karlskoga           K</span>
+<span class="co">#&gt; 97    312      1080                   Karlskrona           K</span>
+<span class="co">#&gt; 98    312      1780                     Karlstad           K</span>
+<span class="co">#&gt; 99    312      0483                  Katrineholm           K</span>
+<span class="co">#&gt; 100   312      1715                          Kil           K</span>
+<span class="co">#&gt; 101   312      0513                        Kinda           K</span>
+<span class="co">#&gt; 102   312      2584                       Kiruna           K</span>
+<span class="co">#&gt; 103   312      1276                      Klippan           K</span>
+<span class="co">#&gt; 104   312      0330                      Knivsta           K</span>
+<span class="co">#&gt; 105   312      2282                     Kramfors           K</span>
+<span class="co">#&gt; 106   312      1290                 Kristianstad           K</span>
+<span class="co">#&gt; 107   312      1781                 Kristinehamn           K</span>
+<span class="co">#&gt; 108   312      2309                       Krokom           K</span>
+<span class="co">#&gt; 109   312      1881                        Kumla           K</span>
+<span class="co">#&gt; 110   312      1384                   Kungsbacka           K</span>
+<span class="co">#&gt; 111   312      1960                      Kungsör           K</span>
+<span class="co">#&gt; 112   312      1482                      Kungälv           K</span>
+<span class="co">#&gt; 113   312      1261                     Kävlinge           K</span>
+<span class="co">#&gt; 114   312      1983                       Köping           K</span>
+<span class="co">#&gt; 115   312      1381                       Laholm           K</span>
+<span class="co">#&gt; 116   312      1282                   Landskrona           K</span>
+<span class="co">#&gt; 117   312      0010         Landstinget Blekinge           L</span>
+<span class="co">#&gt; 118   312      0020          Landstinget Dalarna           L</span>
+<span class="co">#&gt; 119   312      0021        Landstinget Gävleborg           L</span>
+<span class="co">#&gt; 120   312      0006 Landstinget i Jönköpings län           L</span>
+<span class="co">#&gt; 121   312      0008     Landstinget i Kalmar län           L</span>
+<span class="co">#&gt; 122   312      0003    Landstinget i Uppsala län           L</span>
+<span class="co">#&gt; 123   312      0017       Landstinget i Värmland           L</span>
+<span class="co">#&gt; 124   312      0005   Landstinget i Östergötland           L</span>
+<span class="co">#&gt; 125   312      0007        Landstinget Kronoberg           L</span>
+<span class="co">#&gt; 126   312      0004         Landstinget Sörmland           L</span>
+<span class="co">#&gt; 127   312      0022   Landstinget Västernorrland           L</span>
+<span class="co">#&gt; 128   312      0019      Landstinget Västmanland           L</span>
+<span class="co">#&gt; 129   312      1860                         Laxå           K</span>
+<span class="co">#&gt; 130   312      1814                     Lekeberg           K</span>
+<span class="co">#&gt; 131   312      2029                      Leksand           K</span>
+<span class="co">#&gt; 132   312      1441                        Lerum           K</span>
+<span class="co">#&gt; 133   312      0761                      Lessebo           K</span>
+<span class="co">#&gt; 134   312      0186                      Lidingö           K</span>
+<span class="co">#&gt; 135   312      1494                    Lidköping           K</span>
+<span class="co">#&gt; 136   312      1462                   Lilla Edet           K</span>
+<span class="co">#&gt; 137   312      1885                   Lindesberg           K</span>
+<span class="co">#&gt; 138   312      0580                    Linköping           K</span>
+<span class="co">#&gt; 139   312      0781                      Ljungby           K</span>
+<span class="co">#&gt; 140   312      2161                      Ljusdal           K</span>
+<span class="co">#&gt; 141   312      1864                 Ljusnarsberg           K</span>
+<span class="co">#&gt; 142   312      1262                        Lomma           K</span>
+<span class="co">#&gt; 143   312      2085                      Ludvika           K</span>
+<span class="co">#&gt; 144   312      2580                        Luleå           K</span>
+<span class="co">#&gt; 145   312      1281                         Lund           K</span>
+<span class="co">#&gt; 146   312      2481                     Lycksele           K</span>
+<span class="co">#&gt; 147   312      1484                      Lysekil           K</span>
+<span class="co">#&gt; 148   312      1280                        Malmö           K</span>
+<span class="co">#&gt; 149   312      2023                 Malung-Sälen           K</span>
+<span class="co">#&gt; 150   312      2418                         Malå           K</span>
+<span class="co">#&gt; 151   312      1493                    Mariestad           K</span>
+<span class="co">#&gt; 152   312      1463                         Mark           K</span>
+<span class="co">#&gt; 153   312      0767                     Markaryd           K</span>
+<span class="co">#&gt; 154   312      1461                     Mellerud           K</span>
+<span class="co">#&gt; 155   312      0586                       Mjölby           K</span>
+<span class="co">#&gt; 156   312      2062                         Mora           K</span>
+<span class="co">#&gt; 157   312      0583                       Motala           K</span>
+<span class="co">#&gt; 158   312      0642                      Mullsjö           K</span>
+<span class="co">#&gt; 159   312      1430                     Munkedal           K</span>
+<span class="co">#&gt; 160   312      1762                     Munkfors           K</span>
+<span class="co">#&gt; 161   312      1481                      Mölndal           K</span>
+<span class="co">#&gt; 162   312      0861                    Mönsterås           K</span>
+<span class="co">#&gt; 163   312      0840                   Mörbylånga           K</span>
+<span class="co">#&gt; 164   312      0182                        Nacka           K</span>
+<span class="co">#&gt; 165   312      1884                         Nora           K</span>
+<span class="co">#&gt; 166   312      1962                      Norberg           K</span>
+<span class="co">#&gt; 167   312      2132                   Nordanstig           K</span>
+<span class="co">#&gt; 168   312      2401                   Nordmaling           K</span>
+<span class="co">#&gt; 169   312      0025   Norrbottens läns landsting           L</span>
+<span class="co">#&gt; 170   312      0581                   Norrköping           K</span>
+<span class="co">#&gt; 171   312      0188                    Norrtälje           K</span>
+<span class="co">#&gt; 172   312      2417                       Norsjö           K</span>
+<span class="co">#&gt; 173   312      0881                        Nybro           K</span>
+<span class="co">#&gt; 174   312      0140                      Nykvarn           K</span>
+<span class="co">#&gt; 175   312      0480                     Nyköping           K</span>
+<span class="co">#&gt; 176   312      0192                    Nynäshamn           K</span>
+<span class="co">#&gt; 177   312      0682                       Nässjö           K</span>
+<span class="co">#&gt; 178   312      2101                      Ockelbo           K</span>
+<span class="co">#&gt; 179   312      1060                    Olofström           K</span>
+<span class="co">#&gt; 180   312      2034                         Orsa           K</span>
+<span class="co">#&gt; 181   312      1421                        Orust           K</span>
+<span class="co">#&gt; 182   312      1273                         Osby           K</span>
+<span class="co">#&gt; 183   312      0882                   Oskarshamn           K</span>
+<span class="co">#&gt; 184   312      2121                     Ovanåker           K</span>
+<span class="co">#&gt; 185   312      0481                    Oxelösund           K</span>
+<span class="co">#&gt; 186   312      2521                       Pajala           K</span>
+<span class="co">#&gt; 187   312      1402                     Partille           K</span>
+<span class="co">#&gt; 188   312      1275                     Perstorp           K</span>
+<span class="co">#&gt; 189   312      2581                        Piteå           K</span>
+<span class="co">#&gt; 190   312      2303                      Ragunda           K</span>
+<span class="co">#&gt; 191   312      0009               Region Gotland           L</span>
+<span class="co">#&gt; 192   312      0013               Region Halland           L</span>
+<span class="co">#&gt; 193   312      0012                 Region Skåne           L</span>
+<span class="co">#&gt; 194   312      0000                        Riket           L</span>
+<span class="co">#&gt; 195   312      2409                  Robertsfors           K</span>
+<span class="co">#&gt; 196   312      1081                      Ronneby           K</span>
+<span class="co">#&gt; 197   312      2031                      Rättvik           K</span>
+<span class="co">#&gt; 198   312      1981                         Sala           K</span>
+<span class="co">#&gt; 199   312      0128                        Salem           K</span>
+<span class="co">#&gt; 200   312      2181                    Sandviken           K</span>
+<span class="co">#&gt; 201   312      0191                      Sigtuna           K</span>
+<span class="co">#&gt; 202   312      1291                   Simrishamn           K</span>
+<span class="co">#&gt; 203   312      1265                        Sjöbo           K</span>
+<span class="co">#&gt; 204   312      1495                        Skara           K</span>
+<span class="co">#&gt; 205   312      2482                   Skellefteå           K</span>
+<span class="co">#&gt; 206   312      1904              Skinnskatteberg           K</span>
+<span class="co">#&gt; 207   312      1264                       Skurup           K</span>
+<span class="co">#&gt; 208   312      1496                       Skövde           K</span>
+<span class="co">#&gt; 209   312      2061                 Smedjebacken           K</span>
+<span class="co">#&gt; 210   312      2283                    Sollefteå           K</span>
+<span class="co">#&gt; 211   312      0163                   Sollentuna           K</span>
+<span class="co">#&gt; 212   312      0184                        Solna           K</span>
+<span class="co">#&gt; 213   312      2422                      Sorsele           K</span>
+<span class="co">#&gt; 214   312      1427                      Sotenäs           K</span>
+<span class="co">#&gt; 215   312      1230                 Staffanstorp           K</span>
+<span class="co">#&gt; 216   312      1415                  Stenungsund           K</span>
+<span class="co">#&gt; 217   312      0180                    Stockholm           K</span>
+<span class="co">#&gt; 218   312      0001    Stockholms läns landsting           L</span>
+<span class="co">#&gt; 219   312      1760                     Storfors           K</span>
+<span class="co">#&gt; 220   312      2421                     Storuman           K</span>
+<span class="co">#&gt; 221   312      0486                    Strängnäs           K</span>
+<span class="co">#&gt; 222   312      1486                    Strömstad           K</span>
+<span class="co">#&gt; 223   312      2313                    Strömsund           K</span>
+<span class="co">#&gt; 224   312      0183                   Sundbyberg           K</span>
+<span class="co">#&gt; 225   312      2281                    Sundsvall           K</span>
+<span class="co">#&gt; 226   312      1766                        Sunne           K</span>
+<span class="co">#&gt; 227   312      1907                   Surahammar           K</span>
+<span class="co">#&gt; 228   312      1214                       Svalöv           K</span>
+<span class="co">#&gt; 229   312      1263                      Svedala           K</span>
+<span class="co">#&gt; 230   312      1465                   Svenljunga           K</span>
+<span class="co">#&gt; 231   312      1785                       Säffle           K</span>
+<span class="co">#&gt; 232   312      2082                        Säter           K</span>
+<span class="co">#&gt; 233   312      0684                       Sävsjö           K</span>
+<span class="co">#&gt; 234   312      2182                    Söderhamn           K</span>
+<span class="co">#&gt; 235   312      0582                  Söderköping           K</span>
+<span class="co">#&gt; 236   312      0181                   Södertälje           K</span>
+<span class="co">#&gt; 237   312      1083                   Sölvesborg           K</span>
+<span class="co">#&gt; 238   312      1435                        Tanum           K</span>
+<span class="co">#&gt; 239   312      1472                        Tibro           K</span>
+<span class="co">#&gt; 240   312      1498                     Tidaholm           K</span>
+<span class="co">#&gt; 241   312      0360                        Tierp           K</span>
+<span class="co">#&gt; 242   312      2262                        Timrå           K</span>
+<span class="co">#&gt; 243   312      0763                     Tingsryd           K</span>
+<span class="co">#&gt; 244   312      1419                        Tjörn           K</span>
+<span class="co">#&gt; 245   312      1270                    Tomelilla           K</span>
+<span class="co">#&gt; 246   312      1737                       Torsby           K</span>
+<span class="co">#&gt; 247   312      0834                       Torsås           K</span>
+<span class="co">#&gt; 248   312      1452                      Tranemo           K</span>
+<span class="co">#&gt; 249   312      0687                       Tranås           K</span>
+<span class="co">#&gt; 250   312      1287                   Trelleborg           K</span>
+<span class="co">#&gt; 251   312      1488                  Trollhättan           K</span>
+<span class="co">#&gt; 252   312      0488                        Trosa           K</span>
+<span class="co">#&gt; 253   312      0138                       Tyresö           K</span>
+<span class="co">#&gt; 254   312      0160                         Täby           K</span>
+<span class="co">#&gt; 255   312      1473                     Töreboda           K</span>
+<span class="co">#&gt; 256   312      1485                    Uddevalla           K</span>
+<span class="co">#&gt; 257   312      1491                   Ulricehamn           K</span>
+<span class="co">#&gt; 258   312      2480                         Umeå           K</span>
+<span class="co">#&gt; 259   312      0114               Upplands Väsby           K</span>
+<span class="co">#&gt; 260   312      0139                 Upplands-Bro           K</span>
+<span class="co">#&gt; 261   312      0380                      Uppsala           K</span>
+<span class="co">#&gt; 262   312      0760                   Uppvidinge           K</span>
+<span class="co">#&gt; 263   312      0584                     Vadstena           K</span>
+<span class="co">#&gt; 264   312      0665                     Vaggeryd           K</span>
+<span class="co">#&gt; 265   312      0563                 Valdemarsvik           K</span>
+<span class="co">#&gt; 266   312      0115                   Vallentuna           K</span>
+<span class="co">#&gt; 267   312      2021                      Vansbro           K</span>
+<span class="co">#&gt; 268   312      1470                         Vara           K</span>
+<span class="co">#&gt; 269   312      1383                      Varberg           K</span>
+<span class="co">#&gt; 270   312      0187                      Vaxholm           K</span>
+<span class="co">#&gt; 271   312      1233                     Vellinge           K</span>
+<span class="co">#&gt; 272   312      0685                     Vetlanda           K</span>
+<span class="co">#&gt; 273   312      2462                   Vilhelmina           K</span>
+<span class="co">#&gt; 274   312      0884                     Vimmerby           K</span>
+<span class="co">#&gt; 275   312      2404                      Vindeln           K</span>
+<span class="co">#&gt; 276   312      0428                     Vingåker           K</span>
+<span class="co">#&gt; 277   312      1442                     Vårgårda           K</span>
+<span class="co">#&gt; 278   312      1487                   Vänersborg           K</span>
+<span class="co">#&gt; 279   312      2460                       Vännäs           K</span>
+<span class="co">#&gt; 280   312      0120                       Värmdö           K</span>
+<span class="co">#&gt; 281   312      0683                      Värnamo           K</span>
+<span class="co">#&gt; 282   312      0024 Västerbottens läns landsting           L</span>
+<span class="co">#&gt; 283   312      0883                    Västervik           K</span>
+<span class="co">#&gt; 284   312      1980                     Västerås           K</span>
+<span class="co">#&gt; 285   312      0014     Västra Götalandsregionen           L</span>
+<span class="co">#&gt; 286   312      0780                        Växjö           K</span>
+<span class="co">#&gt; 287   312      0512                         Ydre           K</span>
+<span class="co">#&gt; 288   312      1286                        Ystad           K</span>
+<span class="co">#&gt; 289   312      1492                         Åmål           K</span>
+<span class="co">#&gt; 290   312      2260                         Ånge           K</span>
+<span class="co">#&gt; 291   312      2321                          Åre           K</span>
+<span class="co">#&gt; 292   312      1765                       Årjäng           K</span>
+<span class="co">#&gt; 293   312      2463                        Åsele           K</span>
+<span class="co">#&gt; 294   312      1277                       Åstorp           K</span>
+<span class="co">#&gt; 295   312      0561                   Åtvidaberg           K</span>
+<span class="co">#&gt; 296   312      0765                      Älmhult           K</span>
+<span class="co">#&gt; 297   312      2039                     Älvdalen           K</span>
+<span class="co">#&gt; 298   312      0319                   Älvkarleby           K</span>
+<span class="co">#&gt; 299   312      2560                      Älvsbyn           K</span>
+<span class="co">#&gt; 300   312      1292                    Ängelholm           K</span>
+<span class="co">#&gt; 301   312      1407                       Öckerö           K</span>
+<span class="co">#&gt; 302   312      0509                      Ödeshög           K</span>
+<span class="co">#&gt; 303   312      1880                       Örebro           K</span>
+<span class="co">#&gt; 304   312      0018        Örebro läns landsting           L</span>
+<span class="co">#&gt; 305   312      1257                  Örkelljunga           K</span>
+<span class="co">#&gt; 306   312      2284                 Örnsköldsvik           K</span>
+<span class="co">#&gt; 307   312      2380                    Östersund           K</span>
+<span class="co">#&gt; 308   312      0117                    Österåker           K</span>
+<span class="co">#&gt; 309   312      0382                    Östhammar           K</span>
+<span class="co">#&gt; 310   312      1256                 Östra Göinge           K</span>
+<span class="co">#&gt; 311   312      2513                    Överkalix           K</span>
+<span class="co">#&gt; 312   312      2518                   Övertorneå           K</span></code></pre></div>
+</div>
+<div id="fetchkpis" class="section level3">
+<h3>fetchKpis</h3>
+<p>A method call that gives back a dataset with all member id’s and the associated description.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+b =<span class="st"> </span><span class="kw">fetchKpis</span>()</code></pre></div>
+</div>
+<div id="fetchbymunicipality" class="section level3">
+<h3>fetchByMunicipality</h3>
+<p>A method call that returns a dataset with all values for the prespecified municipality and year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+c =<span class="st"> </span><span class="kw">fetchByMunicipality</span>(<span class="dv">1440</span>, <span class="dv">2012</span>)</code></pre></div>
+</div>
+<div id="fetchbykpi" class="section level3">
+<h3>fetchByKpi</h3>
+<p>A method call that gives back a dataset with all values for the prespecified kpis, municipality and year. In this example the kpi’s “N00914” and “U00405” of the municipailty 1440 and year 2012 are fetched. The method returns a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+d =<span class="st"> </span><span class="kw">fetchByKpi</span>(<span class="kw">list</span>(<span class="st">&quot;N00914,U00405&quot;</span>), <span class="dv">1440</span>, <span class="dv">2012</span>)</code></pre></div>
+</div>
+<div id="example-api" class="section level3">
+<h3>Example API</h3>
+<p><a href="http://api.kolada.se/v2/data/municipality/1860/year/2009" class="uri">http://api.kolada.se/v2/data/municipality/1860/year/2009</a></p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -10,7 +10,9 @@ Encoding: UTF-8
 Depends: R (>= 3.3.0)
 LazyData: false
 Suggests: testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Imports: shiny,
     httr,
     jsonlite,
@@ -19,3 +21,4 @@ Imports: shiny,
     ggplot2,
     yarrr
 RoxygenNote: 6.1.0
+VignetteBuilder: knitr

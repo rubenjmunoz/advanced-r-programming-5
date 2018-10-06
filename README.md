@@ -9,17 +9,6 @@ A Tutorial how to consume a REST-API in R can be found [here](https://www.progra
 
 The packages needed are [httr](https://cran.r-project.org/web/packages/httr/index.html) for the HTTP communication and [jsonlite](https://cran.r-project.org/web/packages/jsonlite/index.html) for mapping JSON data to data.frames.
 
-## ToDo
-- ~~Analyse data and decide which data we want to visualize~~.
-- ~~Make HTTP calls to receive the data and map it to a data.frame.~~
-- Refactor code and make it more beautiful
-- ~~Copy left side code to the right side~~
-- Implement selection of multiple KPIs
-- ~~More fancy stuff like color, etc.~~
-- ~~Package documentation~~
-- ~~Unit Tests~~
-- Vignette
-- ~~TravisCI and create R package~~
 
 ## Example for REST-Call
 This is an example how the libraries can be used to fetch data. Be aware, that this example does not handle pagination.
@@ -52,4 +41,11 @@ For this call, the response looks like this:
 4     N15030 V150115G0R02          2011         62.1             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
 5     N15030 V150117G0R01          2011         84.8             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
 6     N15030 V150117G0R02          2011         76.4             NA             NA http://api.kolada.se/v1/ou/data/peryear/N15030/2011?page=2&per_page=100   100
+```
+
+
+# Execution of the shiny- App
+
+```r
+shinyApp(ui = ui, server = server)
 ```
