@@ -69,6 +69,10 @@ server = function(input, output) {
       as.matrix(municipalitiesDataFrame["values.title"])
     )]
     
+    ## Get available KPIs
+    availableKpis = fetchByMunicipality(municipality = municipalityDropDownListLeftHolder, year = as.lis(yearsAsVector))
+    
+    
     #the call is made to fetch all the available KPI and save it filtered as a list
     #(try to make it only once every time the app is started)
     AllKpi = as.matrix(kpisDataFrame["member_id"])
