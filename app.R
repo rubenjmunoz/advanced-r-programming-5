@@ -23,21 +23,21 @@ server = function(input, output, session) {
   kpisDataFrame = fetchKpis()
   yearsAsVector = c(1980:2018)
   
-  kpiListByMunicipalitySelection = function(){
-    ## Get available KPIs
-    x = input$municipalityDropDownListLeft
-    municipalityDropDownListLeftId = as.numeric(as.matrix(municipalitiesDataFrame["values.id"])[match(
-      as.character(input$municipalityDropDownListLeft),
-      as.matrix(municipalitiesDataFrame["values.title"])
-    )])
-    a = !is.numeric(municipalityDropDownListLeftId)
-      b = length(municipalityDropDownListLeftId) != 1
-    if (!is.numeric(municipalityDropDownListLeftId) | length(municipalityDropDownListLeftId) != 1) return(c(NoData = 1))
-    
-    availableKpis = fetchByMunicipality(municipality = municipalityDropDownListLeftId, year = yearsAsVector)
-    setKpi = unique(availableKpis["values.kpi"])
-    return(setKpi)
-  }
+  # kpiListByMunicipalitySelection = function(){
+  #   ## Get available KPIs
+  #   x = input$municipalityDropDownListLeft
+  #   municipalityDropDownListLeftId = as.numeric(as.matrix(municipalitiesDataFrame["values.id"])[match(
+  #     as.character(input$municipalityDropDownListLeft),
+  #     as.matrix(municipalitiesDataFrame["values.title"])
+  #   )])
+  #   a = !is.numeric(municipalityDropDownListLeftId)
+  #     b = length(municipalityDropDownListLeftId) != 1
+  #   if (!is.numeric(municipalityDropDownListLeftId) | length(municipalityDropDownListLeftId) != 1) return(c(NoData = 1))
+  #   
+  #   availableKpis = fetchByMunicipality(municipality = municipalityDropDownListLeftId, year = yearsAsVector)
+  #   setKpi = unique(availableKpis["values.kpi"])
+  #   return(setKpi)
+  # }
   
   # Municipality Dropdown Left
   output$municipalityDropDownListLeft = renderUI({
@@ -47,7 +47,7 @@ server = function(input, output, session) {
       choices = as.matrix(municipalitiesDataFrame["values.title"]),
       #kpiListByMunicipalitySelection()
       #choices = kpiListByMunicipalitySelection(),
-      label = "Select Municipality:"
+      label = "Select Municipality:",
     )
   })
   
@@ -65,7 +65,8 @@ server = function(input, output, session) {
     selectInput(
       inputId = "kpiDropDownListLeft",
       choices = as.matrix(kpisDataFrame["member_id"]),
-      label = "Select KPI:"
+      label = "Select KPI:",
+      selected = as.matrix(kpisDataFrame["member_id"])[650]
     )
     #selectInput(
     #  inputId = "kpiDropDownListLeft",
@@ -79,7 +80,8 @@ server = function(input, output, session) {
     selectInput(
       inputId = "kpiDropDownListRight",
       choices = as.matrix(kpisDataFrame["member_id"]),
-      label = "Select KPI:"
+      label = "Select KPI:",
+      selected = as.matrix(kpisDataFrame["member_id"])[650]
     )
   })
   #left panel filtered options based on city name
@@ -104,10 +106,10 @@ server = function(input, output, session) {
     
     ### Continue here
     
-    kpis = kpiListByMunicipalitySelection()
-    print(kpis)
-    updateSelectInput(session, "kpiDropDownListLeft",
-                 choices = kpis) # remove selection
+    # kpis = kpiListByMunicipalitySelection()
+    # print(kpis)
+    # updateSelectInput(session, "kpiDropDownListLeft",
+    #              choices = kpis) # remove selection
   })
   
   observeEvent(input$PlotButtonLeft, {
@@ -352,7 +354,7 @@ ui = shinyUI(fluidPage(theme = shinytheme("slate"), fluidRow(column(
           label = "Year Range",
           min = 1980,
           max = 2017,
-          value = c(1992, 2004),
+          value = c(2007, 20017),
           width = "100%"
         ),
         fluidRow(
@@ -378,7 +380,7 @@ ui = shinyUI(fluidPage(theme = shinytheme("slate"), fluidRow(column(
           label = "Year Range",
           min = 1980,
           max = 2017,
-          value = c(1992, 2004),
+          value = c(2007, 2017),
           width = "100%"
         ),
         fluidRow(
