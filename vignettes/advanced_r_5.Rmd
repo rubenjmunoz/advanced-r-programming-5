@@ -274,16 +274,6 @@ fetchByKpi = function(kpi, municipality , year = 0) {
 
 
 
-a = fetchMunicipalities()
-
-b = fetchKpis()
-
-c = fetchByKpi(list("N00914,U00405"), 1440, 2012)
-
-#d = fetchByMunicipality(1440)
-
-
-
 ```
 
 
@@ -305,7 +295,7 @@ This package uses R to connect to a web API. It uses a Shiny App, in which two s
 A method call that gives back a dataset with all municipalities, their count, id and value type.
 ```{r, fig.show='hold'}
 
-fetchMunicipalities()
+a = fetchMunicipalities()
 
 ```
 
@@ -322,16 +312,28 @@ b = fetchKpis()
 
 ```
 
+### fetchByMunicipality
 
-
-### fetchKPI
-
-A method call that gives back a dataset with all values for the prespecified kpis, municipality and year.
+A method call that returns a dataset with all values for the prespecified municipality and year.
 
 ```{r, fig.show='hold'}
 
-c = fetchByKpi(list("N00914,U00405"), 1440, 2012)
+c = fetchByMunicipality(1440, 2012)
 
+
+```
+
+
+
+
+### fetchByKpi
+
+A method call that gives back a dataset with all values for the prespecified kpis, municipality and year.
+In this example the kpi's "N00914" and "U00405" of the municipailty 1440 and year 2012 are fetched. The method returns a data frame.
+
+```{r, fig.show='hold'}
+
+d = fetchByKpi(list("N00914,U00405"), 1440, 2012)
 
 ```
 
