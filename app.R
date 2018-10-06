@@ -76,17 +76,17 @@ server = function(input, output) {
     #kpi preparation in to a nice string with comas
     kpiString <- c("")
     for (i in 1:209) {
-      kpiString <- paste(kpiString, AllKpi[i, ], ",")
+      kpiString <- paste(kpiString, AllKpi[i, ], ",", sep = "")
     }
-    kpiString <- paste(kpiString, AllKpi[length(AllKpi), ])
+    kpiString <- paste(kpiString, AllKpi[length(AllKpi), ], sep = "")
 
     
     #years preparation in to a nice string with comas
     yearsString <- c("")
     for (i in 1:(length(yearsAsVector) - 1)) {
-      yearsString <- paste(yearsString, yearsAsVector[i], ",")
+      yearsString <- paste(yearsString, yearsAsVector[i], ",", sep = "")
     }
-    yearsString <- paste(yearsString, yearsAsVector[length(yearsAsVector)])
+    yearsString <- paste(yearsString, yearsAsVector[length(yearsAsVector)], sep = "")
 
     
     
@@ -94,7 +94,7 @@ server = function(input, output) {
     #print(fetchByKpi(as.list(AllKpi), as.integer(municipalityDropDownListLeftId), as.list(yearsAsVector)))
     
 
-    mensajerino = paste("http://api.kolada.se/v2/data/kpi/",kpiString,"/municipality/",municipalityDropDownListLeftId,"/year/",yearsString)
+    mensajerino = paste("http://api.kolada.se/v2/data/kpi/",kpiString,"/municipality/",municipalityDropDownListLeftId,"/year/",yearsString, sep = "")
     print(mensajerino)
     response = GET(mensajerino)
     print(response)
