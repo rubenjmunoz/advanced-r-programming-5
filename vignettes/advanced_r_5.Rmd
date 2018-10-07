@@ -24,6 +24,10 @@ knitr::opts_chunk$set(
 
 ```{r echo=FALSE, fig.show='hide'}
 
+library(httr)
+library(jsonlite)
+library(plyr)
+
 # Basic Data
 base = "http://api.kolada.se/"
 api_version = "v2/"
@@ -169,8 +173,7 @@ A method call that gives back a dataset with details about municipalities.
 
 ```{r, fig.show='hold'}
 
-fetchMunicipalities()
-
+head(fetchMunicipalities())
 ```
 
 
@@ -180,7 +183,7 @@ A method call that gives back a dataset with all member id's and the associated 
 
 ```{r, fig.show='hold'}
 
-fetchKpis()
+head(fetchKpis())
 
 ```
 
@@ -190,8 +193,7 @@ A method call that returns a dataset with all values for the prespecified munici
 
 ```{r, fig.show='hold'}
 
-fetchByMunicipality(1440, c(2012, 2013))
-
+head(fetchByMunicipality(1440, c(2012, 2013)))
 
 ```
 
@@ -204,8 +206,7 @@ In this example the kpi's "N00914" and "U00405" of the municipailty 1440 and yea
 
 ```{r, fig.show='hold'}
 
-fetchByKpi(list("N00914", "U00405"), 1440, c(2010, 2011, 2012))
-
+head(fetchByKpi(list("N00914", "U00405"), 1440, c(2010, 2011, 2012)))
 ```
 
 
