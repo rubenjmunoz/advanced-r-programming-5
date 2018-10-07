@@ -47,7 +47,7 @@ For this call, the response looks like this:
 # Execution of the shiny- App
 
 ```r
-devtools::install_github("rubenjmunoz/advanced-r-programming-5")
+devtools::install_github("rubenjmunoz/advanced-r-programming-5", build_vignettes = TRUE)
 
 library(shiny)
 runGitHub('advanced-r-programming-5','rubenjmunoz')
