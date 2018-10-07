@@ -47,5 +47,10 @@ For this call, the response looks like this:
 # Execution of the shiny- App
 
 ```r
-shinyApp(ui = ui, server = server)
+devtools::install_github("rubenjmunoz/advanced-r-programming-5")
+
+library(shiny)
+runGitHub('advanced-r-programming-5','rubenjmunoz')
+
+devtools::use_vignette("advanced_r_5")
 ```
