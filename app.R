@@ -211,7 +211,7 @@ server = function(input, output, session) {
           col.axis = "lightgray",
           fg = "lightgray"
         )
-        text(1, 1, "No data available:'( blame the government", col = "red")
+        text(1, 1, "The selected KPI has no data available", col = "red")
       })
     }
     else{
@@ -320,7 +320,7 @@ server = function(input, output, session) {
           col.axis = "lightgray",
           fg = "lightgray"
         )
-        text(1, 1, "No data available:'( blame the government", col = "red")
+        text(1, 1, "The selected KPI has no data available", col = "red")
       })
     }
     else{
@@ -390,7 +390,7 @@ ui = shinyUI(fluidPage(theme = shinytheme("slate"), fluidRow(column(
       6,
       
       wellPanel(
-        h4(" 1. Select Parameters"),
+        h4(" Select Parameters"),
         hr(),
         column(6,
                uiOutput("municipalityDropDownListLeft")),
@@ -407,7 +407,7 @@ ui = shinyUI(fluidPage(theme = shinytheme("slate"), fluidRow(column(
         fluidRow(
           align = "center",
           actionButton(inputId = "PlotButtonLeft",
-                       label = "2. Plot dat shit!")
+                       label = "Plot")
         )
       ),
       fluidRow(plotOutput("Barplot_Left"))
@@ -416,7 +416,7 @@ ui = shinyUI(fluidPage(theme = shinytheme("slate"), fluidRow(column(
     column(
       6,
       wellPanel(
-        h4(" 1. Select Parameters"),
+        h4(" Select Parameters"),
         hr(),
         column(6,
                uiOutput("municipalityDropDownListRight")),
@@ -433,7 +433,7 @@ ui = shinyUI(fluidPage(theme = shinytheme("slate"), fluidRow(column(
         fluidRow(
           align = "center",
           actionButton(inputId = "PlotButtonRight",
-                       label = "2. Plot dat shit!")
+                       label = "Plot")
         )
       ),
       fluidRow(plotOutput("Barplot_Right"))
