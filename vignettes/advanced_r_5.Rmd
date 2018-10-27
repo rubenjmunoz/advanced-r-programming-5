@@ -20,6 +20,18 @@ knitr::opts_chunk$set(
 )
 
 ```
+# About Kolada API
+
+In the municipal and county councils (Kolada) you can follow the municipalities and county councils activities year by year. 
+With about 5,000 key figures, you get the basis for analysis and comparisons. In Kolada, we provide a collective input of key 
+figures on resources, volumes and quality in all municipalities and county councils. Key ratios are often based on national 
+statistics from the statistical authorities, but also on data from other sources. For example, most municipalities and 
+county councils participate in voluntary reporting of quality in various activities in Koladas "input function". 
+We follow and drive the development of new key figures, thus giving you access to Sweden's widest range of information 
+about your business.
+
+(Source: https://www.kolada.se/?_p=index/API )
+
 
 ```{r echo=FALSE, fig.show='hide'}
 
