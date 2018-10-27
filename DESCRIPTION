@@ -7,17 +7,17 @@ Maintainer: Maximilian Pfundstein <maximilian@pfundstein.org>
 Description: Shiny Web Application for analyzing <placerholder> data.
 License: Apache License
 Encoding: UTF-8
-Depends: R (>= 3.3.0)
-LazyData: false
-Suggests: testthat,
-    covr,
-    knitr,
-    rmarkdown
-Imports: shiny,
+Depends: R (>= 3.3.0),
+    shiny,
     httr,
     jsonlite,
     plyr,
     shinythemes,
     ggplot2
+LazyData: false
+Suggests: testthat,
+    covr,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.1.0
 VignetteBuilder: knitr
