@@ -18,7 +18,6 @@ Imports: shiny,
     jsonlite,
     plyr,
     shinythemes,
-    ggplot2,
-    yarrr
+    ggplot2
 RoxygenNote: 6.1.0
 VignetteBuilder: knitr

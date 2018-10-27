@@ -11,7 +11,7 @@ require(httr)
 require(jsonlite)
 require(plyr)
 require(ggplot2)
-require(yarrr)
+#require(yarrr)
 
 source('R/webService.R')
 
@@ -230,9 +230,9 @@ server = function(input, output, session) {
           xlab = "Year",
           ylab = "KPI performance",
           cex.lab = 1.2,
-          col = transparent(c(
+          col = c(
             "springgreen2", "mediumaquamarine"
-          ), trans.val = 0.8),
+          ),
           col.main = "lightgray",
           col.lab = "lightgray",
           col.axis = "lightgray",
@@ -260,7 +260,7 @@ server = function(input, output, session) {
           #inset=c(0.05, -0.2),
           legend = c("Median", "Linear trend"),
           col = c('mediumpurple3', 'yellow3'),
-          bg = transparent(rgb(31.5, 38.6, 44.3, maxColorValue = 255), trans.val = 0.15),
+          bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255),
           box.col = "lightgray",
           text.col = "lightgray",
           lty = 2,
@@ -339,9 +339,9 @@ server = function(input, output, session) {
           xlab = "Year",
           ylab = "KPI performance",
           cex.lab = 1.2,
-          col = transparent(c(
+          col = c(
             "springgreen2", "mediumaquamarine"
-          ), trans.val = 0.8),
+          ),
           col.main = "lightgray",
           col.lab = "lightgray",
           col.axis = "lightgray",
@@ -369,7 +369,7 @@ server = function(input, output, session) {
           #inset=c(0.05, -0.2),
           legend = c("Median", "Linear trend"),
           col = c('mediumpurple3', 'yellow3'),
-          bg = transparent(rgb(31.5, 38.6, 44.3, maxColorValue = 255), trans.val = 0.15),
+          bg = rgb(31.5, 38.6, 44.3, maxColorValue = 255),
           box.col = "lightgray",
           text.col = "lightgray",
           lty = 2,
