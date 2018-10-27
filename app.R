@@ -81,7 +81,7 @@ server = function(input, output, session) {
       inputId = "kpiDropDownListRight",
       choices = as.matrix(kpisDataFrame["member_id"]),
       label = "Select KPI:",
-      selected = kpisDataFrame[kpisDataFrame$member_id == "N15030",1]#as.matrix(kpisDataFrame["member_id"])[650]
+      selected = kpisDataFrame[kpisDataFrame$member_id == "N21802",1]#as.matrix(kpisDataFrame["member_id"])[650]
     )
   
   })

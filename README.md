@@ -63,3 +63,11 @@ KPI:
 Region:
 > Ale
 
+### Other PKI known to have information
+
+KPI:
+> N15030
+> N21802
+> N02901
+> N00209
+
