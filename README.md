@@ -65,7 +65,7 @@ KPI:
 
 
 
-### Other KPI known that have information
+### Other KPI that have information
 
 > N15030
 > N21802
