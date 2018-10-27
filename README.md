@@ -57,15 +57,13 @@ devtools::use_vignette("advanced_r_5")
 
 ### Example KPI's and Municipalities to select in the shinyApp:
 
-Municipality1:
+Municipality:
 > Ale
 
-KPI1:
+KPI:
 > N15030
 
 
-Municipality2:
-> Ale
 
 ### Other PKI known to have information
 
