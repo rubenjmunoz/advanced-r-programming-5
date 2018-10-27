@@ -65,9 +65,8 @@ KPI:
 
 
 
-### Other PKI known to have information
+### Other KPI that have information
 
-KPI:
 > N15030
 > N21802
 > N02901
