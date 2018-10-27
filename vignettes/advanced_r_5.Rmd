@@ -171,7 +171,7 @@ fetchByKpi = function(kpi, municipality , year = c()) {
 Let's have a look at the graphical user interface.
 
 ```{r, out.width="100%", out.height= "100%", echo=FALSE}
-knitr::include_graphics("kola_database.png")
+knitr::include_graphics("vignettes/kola_database.png")
 ```
 
 You can select two KPI's to plot, one on the left hand side and one on the right hand side. With those two charts it's possible to compare the data of either different municipalities or KPIs. You can also specify a range of years to display. Once you've selected the data you want to display, click the button. The data is then fetched from the server and displayed. **Keep in mind that not all combinations of KPIs and municipalities have data. In fact most of them don't. The preselected entries should work though.** Once the data is loaded, you will also find a description of the KPI above the charts. The charts also include the median and the linear trend.
