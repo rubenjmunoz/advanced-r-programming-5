@@ -21,7 +21,6 @@ knitr::opts_chunk$set(
 
 ```
 
-
 ```{r echo=FALSE, fig.show='hide'}
 
 library(httr)
@@ -168,6 +167,18 @@ fetchByKpi = function(kpi, municipality , year = c()) {
 
 ```
 
+## Graphical User Interface
+Let's have a look at the graphical user interface.
+
+```{r, out.width="100%", out.height= "100%", echo=FALSE}
+knitr::include_graphics("../img/kola_database.png")
+```
+
+You can select two KPI's to plot, one on the left hand side and one on the right hand side. With those two charts it's possible to compare the data of either different municipalities or KPIs. You can also specify a range of years to display. Once you've selected the data you want to display, click the button. The data is then fetched from the server and displayed. **Keep in mind that not all combinations of KPIs and municipalities have data. In fact most of them don't. The preselected entries should work though.** Once the data is loaded, you will also find a description of the KPI above the charts. The charts also include the median and the linear trend.
+
+## webService.R
+This are the different methods provided by the webService.R file. This service is responsible for the communication with the server.
+
 ### fetchMunicipalities
 A method call that gives back a dataset with details about municipalities.
 
@@ -178,7 +189,6 @@ head(fetchMunicipalities())
 
 
 ### fetchKpis
-
 A method call that gives back a dataset with all member id's and the associated description.
 
 ```{r, fig.show='hold'}
@@ -188,7 +198,6 @@ head(fetchKpis())
 ```
 
 ### fetchByMunicipality
-
 A method call that returns a dataset with all values for the prespecified municipality and year.
 
 ```{r, fig.show='hold'}
@@ -200,7 +209,6 @@ head(fetchByMunicipality(1440, c(2012, 2013)))
 
 
 ### fetchByKpi
-
 A method call that gives back a dataset with all values for the prespecified kpis, municipality and year.
 In this example the kpi's "N00914" and "U00405" of the municipailty 1440 and year 2010, 2011 and 2012 are fetched. The method returns a data frame.
 
@@ -210,8 +218,9 @@ head(fetchByKpi(list("N00914", "U00405"), 1440, c(2010, 2011, 2012)))
 ```
 
 
+## Example API
+If you like to see how the data looks like, you can simply open the following URL in a webbrowser (or send a HTTP GET request). Firefox has a nice interface for displaying JSON, so we recommend using Firefox for this.
 
-### Example API
 http://api.kolada.se/v2/data/municipality/1860/year/2009 
 
 

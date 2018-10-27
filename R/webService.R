@@ -80,8 +80,8 @@ fetchByMunicipality = function(municipality, year){
   response = GET(webCall)
   
   # Check Server Response
-  print(response)
-  if (response["status_code"] < 200 | response["status_code"] > 299) stop("HTTP Stauts code it not OK (not in range 200-299).")
+  #print(response)
+  if (response["status_code"] < 200 | response["status_code"] > 299) stop("HTTP Status code it not OK (not in range 200-299).")
   
   # Deserialization
   result = fromJSON(content(response, "text"), flatten = TRUE)
