@@ -44,7 +44,7 @@ For this call, the response looks like this:
 ```
 
 
-# Execution of the shiny- App
+# Execution of the shinyApp
 
 ```r
 devtools::install_github("rubenjmunoz/advanced-r-programming-5", build_vignettes = TRUE)
@@ -55,12 +55,16 @@ runGitHub('advanced-r-programming-5','rubenjmunoz')
 devtools::use_vignette("advanced_r_5")
 ```
 
-### Example KPI and Region to select in the shiny App:
+### Example KPI's and Municipalities to select in the shinyApp:
 
-KPI:
+Municipality1:
+> Ale
+
+KPI1:
 > N15030
 
-Region:
+
+Municipality2:
 > Ale
 
 ### Other PKI known to have information
