@@ -54,3 +54,12 @@ runGitHub('advanced-r-programming-5','rubenjmunoz')
 
 devtools::use_vignette("advanced_r_5")
 ```
+
+### Example KPI and Region to select in the shiny App:
+
+KPI:
+> N15030
+
+Region:
+> Ale
+
